@@ -308,6 +308,12 @@ npm run lint
 
 ## 📚 Documentation
 
+### Organization Documentation
+- **[Contributing Guidelines](https://github.com/MyBitcoinFuture/.github/blob/main/CONTRIBUTING.md)** - How to contribute
+- **[AI Development Guidelines](https://github.com/MyBitcoinFuture/.github/blob/main/docs/AI_GUIDELINES.md)** - AI-assisted development standards
+- **[Security Policy](https://github.com/MyBitcoinFuture/.github/blob/main/SECURITY.md)** - Security procedures
+- **[Code of Conduct](https://github.com/MyBitcoinFuture/.github/blob/main/CODE_OF_CONDUCT.md)** - Community standards
+
 ### Repository Documentation
 - **[Dashboard Documentation](https://github.com/MyBitcoinFuture/dashboard/tree/main/docs)** - Complete dashboard documentation
 - **[API Reference](https://github.com/MyBitcoinFuture/dashboard/blob/main/docs/API_DOCUMENTATION.md)** - REST API documentation
