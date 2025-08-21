@@ -199,6 +199,45 @@ git status
 - **Check file existence**: `ls -la` before editing files
 - **Verify git status**: `git status` before making changes
 
+## 🔍 AI Analysis Guidelines
+**🎯 CRITICAL FOR AI AGENTS: How to provide effective analysis and feedback**
+
+### Core Analysis Principles
+- **Lead with substantive feedback** rather than praise. Find real issues first.
+- **Look for specific gaps and improvements**, not just surface-level validation.
+- **Think practically**: What would cause problems in real use? What's missing?
+- **Give concrete examples** of issues/improvements, not vague suggestions.
+- **Consider failure scenarios** and edge cases that might be overlooked.
+- **Compare to practical standards** - what would work reliably in practice?
+- **Identify the most important areas** that need attention or strengthening.
+
+### Analysis Framework
+**When reviewing code, architecture, or implementations:**
+
+1. **Start with critical issues** - What could break or cause security problems?
+2. **Identify missing components** - What's needed for production readiness?
+3. **Assess integration points** - How does this fit with existing systems?
+4. **Evaluate error handling** - What happens when things go wrong?
+5. **Check security implications** - Are there vulnerabilities or exposure risks?
+6. **Consider performance impact** - Will this scale or cause bottlenecks?
+7. **Validate Bitcoin-specific concerns** - Does this handle Bitcoin operations safely?
+
+### Feedback Quality Standards
+**Provide feedback that is:**
+- **Specific and actionable** - Don't just say "this could be better"
+- **Prioritized by impact** - Focus on issues that matter most
+- **Context-aware** - Consider the repository and system context
+- **Solution-oriented** - Suggest concrete improvements when possible
+- **Risk-focused** - Highlight potential failure modes and security concerns
+
+### Common Analysis Anti-Patterns to Avoid
+- **Surface-level validation** - Don't just confirm things work
+- **Vague suggestions** - Avoid "consider improving this" without specifics
+- **Ignoring edge cases** - Always think about failure scenarios
+- **Missing security analysis** - Security should be a primary concern
+- **Overlooking integration** - Consider how changes affect other systems
+- **Praise without substance** - Focus on actionable improvements
+
 ## 🔍 CRITICAL: Assumption Validation & Existing Code Check
 
 ### 🚨 MANDATORY: Validate Assumptions Before Implementation
