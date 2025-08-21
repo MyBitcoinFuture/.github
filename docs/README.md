@@ -1,89 +1,23 @@
 # MyBitcoinFuture Documentation
 
-## 📚 **Documentation Structure**
+**Documentation for the MyBitcoinFuture organization**
 
-### **Core Documentation**
-- **[Getting Started](getting-started.md)** - Quick start guide and setup
-- **[Architecture Overview](architecture.md)** - System architecture and design
-- **[API Reference](api-reference.md)** - Complete API documentation
-- **[Security Guide](security.md)** - Security best practices and guidelines
+## 📚 Main Documentation
 
-### **Development Documentation**
-- **[AI Development Guidelines](ai-guidelines.md)** - AI-assisted development patterns
-- **[Development Workflow](development-workflow.md)** - Development processes and standards
-- **[Testing Guide](testing.md)** - Testing strategies and patterns
-- **[Deployment Guide](deployment.md)** - Deployment procedures and configurations
+For comprehensive documentation, see the **[main documentation index](https://github.com/MyBitcoinFuture/.github/tree/main/docs)**.
 
-### **Integration Documentation**
-- **[Start9 Integration](integrations/start9.md)** - Start9 platform integration
-- **[Bitcoin Core Integration](integrations/bitcoin-core.md)** - Bitcoin Core integration details
-- **[Plugin Development](integrations/plugins.md)** - Plugin system documentation
+## 🔒 Security Documentation
 
-### **Configuration Documentation**
-- **[Environment Configuration](configuration/environment.md)** - Environment variable reference
-- **[Security Configuration](configuration/security.md)** - Security configuration options
-- **[Performance Tuning](configuration/performance.md)** - Performance optimization
+- **[Security Guidelines](security.md)** - Security architecture and best practices
 
-### **Troubleshooting**
-- **[Common Issues](troubleshooting/common-issues.md)** - Frequently encountered problems
-- **[Debug Guide](troubleshooting/debug.md)** - Debugging procedures and tools
-- **[Recovery Procedures](troubleshooting/recovery.md)** - System recovery and maintenance
+## 🔌 Integration Documentation
 
-## 🎯 **Quick Navigation**
+- **[Integrations](integrations/)** - Platform integration guides
 
-### **For New Users**
-1. [Getting Started](getting-started.md)
-2. [Architecture Overview](architecture.md)
-3. [Security Guide](security.md)
+## 📁 Archive
 
-### **For Developers**
-1. [AI Development Guidelines](ai-guidelines.md)
-2. [Development Workflow](development-workflow.md)
-3. [Testing Guide](testing.md)
-
-### **For System Administrators**
-1. [Deployment Guide](deployment.md)
-2. [Configuration Reference](configuration/environment.md)
-3. [Troubleshooting Guide](troubleshooting/common-issues.md)
-
-### **For Integrators**
-1. [Start9 Integration](integrations/start9.md)
-2. [Bitcoin Core Integration](integrations/bitcoin-core.md)
-3. [Plugin Development](integrations/plugins.md)
-
-## 📖 **Documentation Standards**
-
-### **File Naming Convention**
-- Use kebab-case for file names: `getting-started.md`
-- Use descriptive names that indicate content
-- Group related documentation in subdirectories
-
-### **Documentation Format**
-- Use Markdown with consistent formatting
-- Include table of contents for long documents
-- Use emojis for visual organization
-- Include code examples where appropriate
-
-### **Version Control**
-- All documentation is version controlled
-- Update documentation with code changes
-- Use consistent version numbering
-
-## 🔄 **Documentation Maintenance**
-
-### **Update Schedule**
-- **Weekly**: Review and update development docs
-- **Monthly**: Review and update user documentation
-- **Quarterly**: Comprehensive documentation audit
-
-### **Review Process**
-1. **Content Review**: Accuracy and completeness
-2. **Structure Review**: Organization and navigation
-3. **Format Review**: Consistency and readability
-4. **Link Review**: Internal and external links
+Historical and redundant documentation has been moved to the **[archive](https://github.com/MyBitcoinFuture/.github/tree/main/docs/archive)**.
 
 ---
 
-**Last Updated**: August 2025  
-**Version**: 2.0.0  
-**Status**: **ACTIVE DOCUMENTATION** 
+**For the most up-to-date documentation, always check the [main documentation index](https://github.com/MyBitcoinFuture/.github/tree/main/docs).** 
