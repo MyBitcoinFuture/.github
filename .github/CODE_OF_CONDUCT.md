@@ -132,9 +132,9 @@ our existing governing policies.
 
 ## Additional Resources
 
-* [Contributing Guidelines](CONTRIBUTING.md)
+* [Contributing Guidelines](https://github.com/MyBitcoinFuture/.github/blob/main/CONTRIBUTING.md)
 * [AI Development Guidelines](docs/AI_GUIDELINES.md)
-* [Security Policy](SECURITY.md)
+* [Security Policy](https://github.com/MyBitcoinFuture/.github/blob/main/SECURITY.md)
 
 ## License
 

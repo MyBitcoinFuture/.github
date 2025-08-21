@@ -151,8 +151,8 @@ Our security response team consists of:
 ### Documentation
 
 * **[AI Development Guidelines](docs/AI_GUIDELINES.md)** - Security guidelines for AI development
-* **[Contributing Guidelines](CONTRIBUTING.md)** - Security best practices for contributors
-* **[Code of Conduct](CODE_OF_CONDUCT.md)** - Community standards
+* **[Contributing Guidelines](https://github.com/MyBitcoinFuture/.github/blob/main/CONTRIBUTING.md)** - Security best practices for contributors
+* **[Code of Conduct](https://github.com/MyBitcoinFuture/.github/blob/main/CODE_OF_CONDUCT.md)** - Community standards
 
 ### Tools
 

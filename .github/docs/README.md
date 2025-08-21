@@ -73,11 +73,11 @@ npm run dev
 
 ## 📋 Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
+See [CONTRIBUTING.md](https://github.com/MyBitcoinFuture/.github/blob/main/CONTRIBUTING.md) for development guidelines.
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE) for details.
+MIT License - see [LICENSE](https://github.com/MyBitcoinFuture/.github/blob/main/LICENSE) for details.
 
 ---
 

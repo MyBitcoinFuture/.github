@@ -3,7 +3,7 @@
 **Comprehensive Bitcoin Treasury Management Ecosystem**
 
 [![Organization](https://img.shields.io/badge/Organization-MyBitcoinFuture-blue.svg)](https://github.com/MyBitcoinFuture)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/MyBitcoinFuture/.github/blob/main/LICENSE)
 [![Status](https://img.shields.io/badge/Status-Production%20Ready-green.svg)]()
 
 ## 🎯 Overview
@@ -98,7 +98,6 @@ npm run dev
 git clone https://github.com/MyBitcoinFuture/core.git
 cd core
 npm install
-npm run setup
 ```
 
 ---
@@ -340,7 +339,7 @@ npm run lint
 - **[Development Guide](https://github.com/MyBitcoinFuture/dashboard/blob/main/docs/DEVELOPMENT.md)** - Development setup
 
 ### Architecture Documentation
-- **[System Architecture](https://github.com/MyBitcoinFuture/dashboard/blob/main/docs/ARCHITECTURE.md)** - High-level system design
+- **[System Overview](https://github.com/MyBitcoinFuture/dashboard/blob/main/docs/SYSTEM_OVERVIEW.md)** - High-level system design
 - **[Security Model](https://github.com/MyBitcoinFuture/dashboard/blob/main/docs/SECURITY.md)** - Security architecture
 - **[Plugin Development](https://github.com/MyBitcoinFuture/plugins/blob/main/README.md)** - Plugin development guide
 - **[Monitoring Setup](https://github.com/MyBitcoinFuture/monitoring/blob/main/README.md)** - Monitoring configuration
@@ -398,7 +397,7 @@ We welcome contributions! Please see our contributing guidelines:
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/MyBitcoinFuture/.github/blob/main/LICENSE) file for details.
 
 ## 🔗 Links
 
