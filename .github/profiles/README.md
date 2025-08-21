@@ -1,16 +1,8 @@
 # MyBitcoinFuture
 
-**Professional Bitcoin Treasury Management**
+**Bitcoin Treasury Management Platform**
 
-Enterprise-grade Bitcoin portfolio management, analytics, and compliance tools for organizations and institutions.
-
-## 🏗️ Repositories
-
-- **[dashboard](https://github.com/MyBitcoinFuture/dashboard)** - Main application (API + Web + CLI + Desktop)
-- **[plugins](https://github.com/MyBitcoinFuture/plugins)** - Extensible plugin ecosystem
-- **[core](https://github.com/MyBitcoinFuture/core)** - Infrastructure components
-- **[monitoring](https://github.com/MyBitcoinFuture/monitoring)** - Observability stack
-- **[platform-manifests](https://github.com/MyBitcoinFuture/platform-manifests)** - Deployment configs
+A comprehensive Bitcoin portfolio management system for organizations and institutions.
 
 ## 🚀 Quick Start
 
@@ -21,14 +13,13 @@ npm run install:all
 npm run dev
 ```
 
-**Services:**
+**Access:**
 - Web Dashboard: http://localhost:3003
 - API Server: http://localhost:3100
 
 ## 🔒 Security
 
 - **xpub-only architecture** - No private key storage
-- **Multi-signature support** - Advanced wallet security
 - **Enterprise authentication** - JWT + 2FA + RBAC
 - **Comprehensive audit logging** - Full operation tracking
 
@@ -40,9 +31,16 @@ npm run dev
 - **Plugin ecosystem** - Extensible functionality
 - **Multi-platform** - Web, Desktop, CLI, API
 
+## 📚 Documentation
+
+- **[System Overview](https://mybitcoinfuture.com/docs/system-overview)** - Architecture and features
+- **[API Reference](https://mybitcoinfuture.com/docs/api-reference)** - Complete API documentation
+- **[Quick Start](https://mybitcoinfuture.com/docs/quick-start)** - Essential commands and setup
+- **[User Guides](https://mybitcoinfuture.com/docs/user-guides)** - Step-by-step tutorials
+
 ## 🤝 Contributing
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md) for development guidelines.
+See [Contributing Guidelines](https://github.com/MyBitcoinFuture/.github/blob/main/CONTRIBUTING.md) for development guidelines.
 
 ## 📄 License
 
