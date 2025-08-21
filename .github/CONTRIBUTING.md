@@ -350,7 +350,7 @@ Before submitting your contribution, ensure you have:
 - **[Documentation](https://github.com/MyBitcoinFuture/.github)** - Organization documentation
 - **[Issues](https://github.com/MyBitcoinFuture/dashboard/issues)** - Bug reports and feature requests
 - **[Discussions](https://github.com/MyBitcoinFuture/dashboard/discussions)** - Community discussions
-- **[AI Guidelines](https://github.com/MyBitcoinFuture/.github/blob/main/docs/AI_GUIDELINES.md)** - AI development guidelines
+- **[AI Guidelines](docs/AI_GUIDELINES.md)** - AI development guidelines
 
 ### Contact
 
