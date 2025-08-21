@@ -248,6 +248,10 @@ grep -r "similar_function" --include="*.js" --include="*.jsx" .
 - [ ] **Validated architectural assumptions** about current state
 - [ ] **Confirmed new code is necessary** and not duplicative
 - [ ] **Understood existing integration points** before adding new ones
+- [ ] **Identified all systems that need integration** with new code
+- [ ] **Mapped existing data flows** that new code will interact with
+- [ ] **Checked for existing error handling patterns** to follow
+- [ ] **Verified existing security patterns** to maintain consistency
 
 **Common Anti-Patterns to Avoid:**
 - **Implementing features that already exist** in different forms
@@ -272,6 +276,19 @@ cat package.json | grep -A 10 -B 10 "dependencies"
 # Check existing implementations
 grep -r "class.*Service" --include="*.js" .
 grep -r "function.*Handler" --include="*.js" .
+
+# Check for integration points
+grep -r "require.*Service" --include="*.js" .
+grep -r "import.*from" --include="*.js" .
+grep -r "new.*Service" --include="*.js" .
+
+# Check for existing error handling patterns
+grep -r "try.*catch" --include="*.js" .
+grep -r "throw.*Error" --include="*.js" .
+
+# Check for existing security patterns
+grep -r "validate.*input" --include="*.js" .
+grep -r "sanitize" --include="*.js" .
 ```
 
 ### 📋 Implementation Validation Template
@@ -299,6 +316,10 @@ IMPLEMENTATION VALIDATION CHECKLIST:
    - [ ] New code needed: [yes/no with justification]
    - [ ] Enhancement of existing: [yes/no with details]
    - [ ] Integration approach: [specified]
+   - [ ] Systems to integrate with: [list all affected systems]
+   - [ ] Data flow integration: [specify how data flows will be affected]
+   - [ ] Error handling integration: [specify how errors will be handled]
+   - [ ] Security integration: [specify security considerations]
 ```
 
 ## 🛠️ Common Patterns
@@ -363,6 +384,8 @@ const ApiResponse = {
 - **Duplicate functionality** - Always search for existing implementations first
 - **Architecture ignorance** - Understand current state before adding new components
 - **Pattern violation** - Follow established conventions, don't create new patterns unnecessarily
+- **Integration ignorance** - Always identify and integrate with existing systems
+- **Data flow disruption** - Understand existing data flows before modifying them
 
 ### Essential Testing Patterns
 ```javascript
