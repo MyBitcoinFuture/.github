@@ -666,7 +666,7 @@ class TestFramework {
 async makeBitcoinRPCRequest(method, params = []) {
   const postData = JSON.stringify({
     jsonrpc: '1.0',
-    id: 'mbfbtc',
+    id: 'mybitcoinfuture',
     method: method,
     params: params
   });

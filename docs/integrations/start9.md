@@ -282,7 +282,7 @@ LOG_LEVEL=debug
 DEBUG=true
 
 # Check service logs
-tail -f logs/mbfbtc.log
+tail -f logs/mybitcoinfuture.log
 ```
 
 ### Health Check Commands
