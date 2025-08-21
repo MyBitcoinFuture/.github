@@ -199,6 +199,108 @@ git status
 - **Check file existence**: `ls -la` before editing files
 - **Verify git status**: `git status` before making changes
 
+## 🔍 CRITICAL: Assumption Validation & Existing Code Check
+
+### 🚨 MANDATORY: Validate Assumptions Before Implementation
+**⚠️ CRITICAL FOR AI AGENTS: Always validate assumptions before making changes**
+
+**Before implementing ANY new functionality:**
+
+1. **Search for existing implementations** - Use semantic search and grep
+2. **Check if functionality already exists** - Look for similar patterns
+3. **Validate architectural assumptions** - Verify repository structure
+4. **Confirm current state** - Check what's already working
+5. **Review existing patterns** - Understand established conventions
+
+**Required Validation Steps:**
+```bash
+# 1. Search for existing functionality
+codebase_search "functionality name"
+grep_search "functionality pattern"
+
+# 2. Check if files/directories exist
+ls -la path/to/expected/file
+find . -name "pattern*" -type f
+
+# 3. Verify repository context
+pwd && git remote -v
+git status
+
+# 4. Check existing implementations
+grep -r "similar_function" --include="*.js" --include="*.jsx" .
+```
+
+### 🔍 MANDATORY: Check Existing Code Before New Implementation
+**🚨 CRITICAL: Never implement new code without checking existing solutions**
+
+**Before writing ANY new code:**
+
+1. **Search existing codebase** for similar functionality
+2. **Check if the feature already exists** in a different form
+3. **Review existing patterns** and conventions
+4. **Understand current architecture** before adding new components
+5. **Validate that new code is actually needed**
+
+**Required Pre-Implementation Checklist:**
+- [ ] **Searched codebase** for existing similar functionality
+- [ ] **Checked all repositories** for related implementations
+- [ ] **Reviewed existing patterns** and conventions
+- [ ] **Validated architectural assumptions** about current state
+- [ ] **Confirmed new code is necessary** and not duplicative
+- [ ] **Understood existing integration points** before adding new ones
+
+**Common Anti-Patterns to Avoid:**
+- **Implementing features that already exist** in different forms
+- **Creating new patterns** when established ones work
+- **Assuming architecture** without checking current state
+- **Duplicating functionality** across repositories
+- **Ignoring existing conventions** and patterns
+
+**Validation Commands:**
+```bash
+# Search for existing functionality
+codebase_search "feature name"
+grep_search "function_name"
+
+# Check for existing patterns
+find . -name "*.js" -exec grep -l "pattern" {} \;
+
+# Verify current architecture
+ls -la
+cat package.json | grep -A 10 -B 10 "dependencies"
+
+# Check existing implementations
+grep -r "class.*Service" --include="*.js" .
+grep -r "function.*Handler" --include="*.js" .
+```
+
+### 📋 Implementation Validation Template
+**Use this template before ANY implementation:**
+
+```
+IMPLEMENTATION VALIDATION CHECKLIST:
+
+1. EXISTING CODE SEARCH:
+   - [ ] Searched for similar functionality: [results]
+   - [ ] Checked all repositories: [results]
+   - [ ] Found existing patterns: [list]
+
+2. ARCHITECTURE VALIDATION:
+   - [ ] Current repository structure: [verified]
+   - [ ] Existing integration points: [identified]
+   - [ ] Established conventions: [understood]
+
+3. ASSUMPTION VALIDATION:
+   - [ ] Repository context: [confirmed]
+   - [ ] File locations: [verified]
+   - [ ] Dependencies: [checked]
+
+4. IMPLEMENTATION DECISION:
+   - [ ] New code needed: [yes/no with justification]
+   - [ ] Enhancement of existing: [yes/no with details]
+   - [ ] Integration approach: [specified]
+```
+
 ## 🛠️ Common Patterns
 
 ### Cross-Repository Imports
@@ -257,6 +359,10 @@ const ApiResponse = {
 - **Process hanging** - Always use timeouts for long-running commands
 - **File path assumptions** - Always verify file existence before editing
 - **Git confusion** - Check `git status` and `git remote -v` before commits
+- **Assumption-based implementation** - Never implement without validating assumptions
+- **Duplicate functionality** - Always search for existing implementations first
+- **Architecture ignorance** - Understand current state before adding new components
+- **Pattern violation** - Follow established conventions, don't create new patterns unnecessarily
 
 ### Essential Testing Patterns
 ```javascript
