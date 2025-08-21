@@ -12,8 +12,8 @@ Our organization consists of multiple repositories:
 
 - **[dashboard](https://github.com/MyBitcoinFuture/dashboard)** - Main application (hybrid monorepo)
 - **[plugins](https://github.com/MyBitcoinFuture/plugins)** - Plugin ecosystem
-- **[core](https://github.com/MyBitcoinFuture/core)** - Infrastructure components
-- **[monitoring](https://github.com/MyBitcoinFuture/monitoring)** - Monitoring and observability
+- **[dashboard](https://github.com/MyBitcoinFuture/dashboard)** - Main application
+- **[website](https://github.com/MyBitcoinFuture/website)** - Organization website
 - **[platform-manifests](https://github.com/MyBitcoinFuture/platform-manifests)** - Platform configurations
 
 ## 🚀 Getting Started
