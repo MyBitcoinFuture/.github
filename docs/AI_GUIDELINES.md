@@ -221,6 +221,168 @@ git status
 - **Check file existence**: `ls -la` before editing files
 - **Verify git status**: `git status` before making changes
 
+## 🔍 AI Analysis Guidelines
+**🎯 CRITICAL FOR AI AGENTS: How to provide effective analysis and feedback**
+
+### Core Analysis Principles
+- **Lead with substantive feedback** rather than praise. Find real issues first.
+- **Look for specific gaps and improvements**, not just surface-level validation.
+- **Think practically**: What would cause problems in real use? What's missing?
+- **Give concrete examples** of issues/improvements, not vague suggestions.
+- **Consider failure scenarios** and edge cases that might be overlooked.
+- **Compare to practical standards** - what would work reliably in practice?
+- **Identify the most important areas** that need attention or strengthening.
+
+### Analysis Framework
+**When reviewing code, architecture, or implementations:**
+
+1. **Start with critical issues** - What could break or cause security problems?
+2. **Identify missing components** - What's needed for production readiness?
+3. **Assess integration points** - How does this fit with existing systems?
+4. **Evaluate error handling** - What happens when things go wrong?
+5. **Check security implications** - Are there vulnerabilities or exposure risks?
+6. **Consider performance impact** - Will this scale or cause bottlenecks?
+7. **Validate Bitcoin-specific concerns** - Does this handle Bitcoin operations safely?
+
+### Feedback Quality Standards
+**Provide feedback that is:**
+- **Specific and actionable** - Don't just say "this could be better"
+- **Prioritized by impact** - Focus on issues that matter most
+- **Context-aware** - Consider the repository and system context
+- **Solution-oriented** - Suggest concrete improvements when possible
+- **Risk-focused** - Highlight potential failure modes and security concerns
+
+### Common Analysis Anti-Patterns to Avoid
+- **Surface-level validation** - Don't just confirm things work
+- **Vague suggestions** - Avoid "consider improving this" without specifics
+- **Ignoring edge cases** - Always think about failure scenarios
+- **Missing security analysis** - Security should be a primary concern
+- **Overlooking integration** - Consider how changes affect other systems
+- **Praise without substance** - Focus on actionable improvements
+
+## 🔍 CRITICAL: Assumption Validation & Existing Code Check
+
+### 🚨 MANDATORY: Validate Assumptions Before Implementation
+**⚠️ CRITICAL FOR AI AGENTS: Always validate assumptions before making changes**
+
+**Before implementing ANY new functionality:**
+
+1. **Search for existing implementations** - Use semantic search and grep
+2. **Check if functionality already exists** - Look for similar patterns
+3. **Validate architectural assumptions** - Verify repository structure
+4. **Confirm current state** - Check what's already working
+5. **Review existing patterns** - Understand established conventions
+
+**Required Validation Steps:**
+```bash
+# 1. Search for existing functionality
+codebase_search "functionality name"
+grep_search "functionality pattern"
+
+# 2. Check if files/directories exist
+ls -la path/to/expected/file
+find . -name "pattern*" -type f
+
+# 3. Verify repository context
+pwd && git remote -v
+git status
+
+# 4. Check existing implementations
+grep -r "similar_function" --include="*.js" --include="*.jsx" .
+```
+
+### 🔍 MANDATORY: Check Existing Code Before New Implementation
+**🚨 CRITICAL: Never implement new code without checking existing solutions**
+
+**Before writing ANY new code:**
+
+1. **Search existing codebase** for similar functionality
+2. **Check if the feature already exists** in a different form
+3. **Review existing patterns** and conventions
+4. **Understand current architecture** before adding new components
+5. **Validate that new code is actually needed**
+
+**Required Pre-Implementation Checklist:**
+- [ ] **Searched codebase** for existing similar functionality
+- [ ] **Checked all repositories** for related implementations
+- [ ] **Reviewed existing patterns** and conventions
+- [ ] **Validated architectural assumptions** about current state
+- [ ] **Confirmed new code is necessary** and not duplicative
+- [ ] **Understood existing integration points** before adding new ones
+- [ ] **Identified all systems that need integration** with new code
+- [ ] **Mapped existing data flows** that new code will interact with
+- [ ] **Checked for existing error handling patterns** to follow
+- [ ] **Verified existing security patterns** to maintain consistency
+
+**Common Anti-Patterns to Avoid:**
+- **Implementing features that already exist** in different forms
+- **Creating new patterns** when established ones work
+- **Assuming architecture** without checking current state
+- **Duplicating functionality** across repositories
+- **Ignoring existing conventions** and patterns
+
+**Validation Commands:**
+```bash
+# Search for existing functionality
+codebase_search "feature name"
+grep_search "function_name"
+
+# Check for existing patterns
+find . -name "*.js" -exec grep -l "pattern" {} \;
+
+# Verify current architecture
+ls -la
+cat package.json | grep -A 10 -B 10 "dependencies"
+
+# Check existing implementations
+grep -r "class.*Service" --include="*.js" .
+grep -r "function.*Handler" --include="*.js" .
+
+# Check for integration points
+grep -r "require.*Service" --include="*.js" .
+grep -r "import.*from" --include="*.js" .
+grep -r "new.*Service" --include="*.js" .
+
+# Check for existing error handling patterns
+grep -r "try.*catch" --include="*.js" .
+grep -r "throw.*Error" --include="*.js" .
+
+# Check for existing security patterns
+grep -r "validate.*input" --include="*.js" .
+grep -r "sanitize" --include="*.js" .
+```
+
+### 📋 Implementation Validation Template
+**Use this template before ANY implementation:**
+
+```
+IMPLEMENTATION VALIDATION CHECKLIST:
+
+1. EXISTING CODE SEARCH:
+   - [ ] Searched for similar functionality: [results]
+   - [ ] Checked all repositories: [results]
+   - [ ] Found existing patterns: [list]
+
+2. ARCHITECTURE VALIDATION:
+   - [ ] Current repository structure: [verified]
+   - [ ] Existing integration points: [identified]
+   - [ ] Established conventions: [understood]
+
+3. ASSUMPTION VALIDATION:
+   - [ ] Repository context: [confirmed]
+   - [ ] File locations: [verified]
+   - [ ] Dependencies: [checked]
+
+4. IMPLEMENTATION DECISION:
+   - [ ] New code needed: [yes/no with justification]
+   - [ ] Enhancement of existing: [yes/no with details]
+   - [ ] Integration approach: [specified]
+   - [ ] Systems to integrate with: [list all affected systems]
+   - [ ] Data flow integration: [specify how data flows will be affected]
+   - [ ] Error handling integration: [specify how errors will be handled]
+   - [ ] Security integration: [specify security considerations]
+```
+
 ## 🛠️ Common Patterns
 
 ### Cross-Repository Imports
@@ -282,6 +444,12 @@ const ApiResponse = {
 - **File deletion without permission** - NEVER delete files unless user explicitly says "delete this specific file"
 - **Interpreting "clean up" as "delete"** - Always ask for clarification
 - **Deleting documentation** - Never delete .md files or documentation folders
+- **Assumption-based implementation** - Never implement without validating assumptions
+- **Duplicate functionality** - Always search for existing implementations first
+- **Architecture ignorance** - Understand current state before adding new components
+- **Pattern violation** - Follow established conventions, don't create new patterns unnecessarily
+- **Integration ignorance** - Always identify and integrate with existing systems
+- **Data flow disruption** - Understand existing data flows before modifying them
 
 ### Essential Testing Patterns
 ```javascript
