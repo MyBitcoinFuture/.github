@@ -1,0 +1,236 @@
+name: Community Engagement
+
+on:
+  discussion:
+    types: [created, edited]
+  workflow_dispatch:
+
+jobs:
+  welcome-new-discussions:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'discussion' && github.event.action == 'created'
+    steps:
+      - name: Welcome new discussions
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { discussion } = context.payload;
+            const category = discussion.category.name;
+            const author = discussion.user.login;
+            
+            // Welcome messages based on category
+            const welcomeMessages = {
+              'General': `👋 Welcome to the discussion, @${author}! Thanks for starting this conversation. Feel free to engage with our community and share your thoughts.`,
+              
+              'Bug Reports & Issues': `🐛 Thanks for reporting this issue, @${author}! Our team will review this and get back to you soon. Please provide any additional details that might help us resolve it.`,
+              
+              'Feature Requests & Ideas': `💡 Great idea, @${author}! We love hearing from our community about new features. Our team will review this suggestion and consider it for our roadmap.`,
+              
+              'Plugin Development': `🔌 Awesome plugin idea, @${author}! The plugin ecosystem is a key part of our platform. Feel free to share more details about your vision.`,
+              
+              'Community Support': `🤝 Thanks for reaching out, @${author}! Our community is here to help. We'll do our best to assist you with your question.`,
+              
+              'Enterprise & Partnerships': `🏢 Thank you for your interest, @${author}! We'll review your enterprise inquiry and get back to you with more information.`
+            };
+            
+            const welcomeMessage = welcomeMessages[category] || `👋 Welcome to the discussion, @${author}! Thanks for contributing to our community.`;
+            
+            // Add welcome comment
+            await github.rest.discussions.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              discussion_number: discussion.number,
+              body: welcomeMessage
+            });
+
+  tag-discussions:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'discussion'
+    steps:
+      - name: Auto-tag discussions
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { discussion } = context.payload;
+            const title = discussion.title || '';
+            const body = discussion.body || '';
+            const category = discussion.category.name;
+            
+            // Auto-add tags based on content
+            const tags = [];
+            
+            // Category-based tags
+            if (category === 'Bug Reports & Issues') {
+              tags.push('bug');
+            } else if (category === 'Feature Requests & Ideas') {
+              tags.push('feature');
+            } else if (category === 'Plugin Development') {
+              tags.push('plugin');
+            } else if (category === 'Community Support') {
+              tags.push('help');
+            } else if (category === 'Enterprise & Partnerships') {
+              tags.push('enterprise');
+            }
+            
+            // Content-based tags
+            if (body.toLowerCase().includes('security') || title.toLowerCase().includes('security')) {
+              tags.push('security');
+            }
+            if (body.toLowerCase().includes('newcomer') || body.toLowerCase().includes('beginner')) {
+              tags.push('newcomer');
+            }
+            if (body.toLowerCase().includes('bitcoin') || title.toLowerCase().includes('bitcoin')) {
+              tags.push('bitcoin');
+            }
+            if (body.toLowerCase().includes('treasury') || title.toLowerCase().includes('treasury')) {
+              tags.push('treasury');
+            }
+            
+            // Add tags if not already present
+            if (tags.length > 0) {
+              const currentTags = discussion.labels || [];
+              const newTags = tags.filter(tag => !currentTags.includes(tag));
+              
+              if (newTags.length > 0) {
+                await github.rest.discussions.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  discussion_number: discussion.number,
+                  labels: [...currentTags, ...newTags]
+                });
+              }
+            }
+
+  community-metrics:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Generate community metrics
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Generate community engagement metrics
+            const discussions = await github.rest.discussions.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              per_page: 100
+            });
+            
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'all',
+              per_page: 100
+            });
+            
+            const comments = await github.rest.issues.listCommentsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              per_page: 100
+            });
+            
+            // Calculate metrics
+            const totalDiscussions = discussions.data.length;
+            const totalIssues = issues.data.length;
+            const totalComments = comments.data.length;
+            
+            const openDiscussions = discussions.data.filter(d => d.state === 'open').length;
+            const openIssues = issues.data.filter(i => i.state === 'open').length;
+            
+            // Category breakdown
+            const categoryStats = {};
+            discussions.data.forEach(discussion => {
+              const category = discussion.category.name;
+              categoryStats[category] = (categoryStats[category] || 0) + 1;
+            });
+            
+            // Create community report
+            const reportBody = `## 📊 Community Engagement Report
+            
+**Generated:** ${new Date().toISOString().split('T')[0]}
+**Repository:** ${context.repo.owner}/${context.repo.repo}
+
+### 📈 Engagement Metrics
+- **Total Discussions:** ${totalDiscussions}
+- **Open Discussions:** ${openDiscussions}
+- **Total Issues:** ${totalIssues}
+- **Open Issues:** ${openIssues}
+- **Total Comments:** ${totalComments}
+
+### 📋 Discussion Categories
+${Object.entries(categoryStats).map(([category, count]) => 
+  `- **${category}:** ${count} discussions`
+).join('\n')}
+
+### 🎯 Engagement Level
+${totalDiscussions > 50 ? '🔥 High' : totalDiscussions > 20 ? '⚡ Medium' : '📉 Low'} community engagement
+
+### 📊 Recommendations
+- ${openDiscussions > 10 ? 'Consider addressing open discussions' : 'Good discussion response rate'}
+- ${openIssues > 20 ? 'Review and triage open issues' : 'Good issue management'}
+- ${totalComments < totalDiscussions * 2 ? 'Encourage more community interaction' : 'Strong community interaction'}
+
+---
+*This report was automatically generated by the community engagement workflow.*`;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `📊 Community Engagement Report - ${new Date().toISOString().split('T')[0]}`,
+              body: reportBody,
+              labels: ['type:documentation', 'automated', 'community-metrics']
+            });
+
+  engagement-reminders:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Send engagement reminders
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Find discussions that haven't been responded to in a while
+            const discussions = await github.rest.discussions.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 50
+            });
+            
+            const now = new Date();
+            const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+            
+            const staleDiscussions = discussions.data.filter(discussion => {
+              const lastComment = discussion.comments?.nodes?.[0];
+              if (!lastComment) return true; // No comments at all
+              
+              const lastCommentDate = new Date(lastComment.createdAt);
+              return lastCommentDate < oneWeekAgo;
+            });
+            
+            if (staleDiscussions.length > 0) {
+              // Create reminder issue
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `📢 Community Engagement Reminder - ${staleDiscussions.length} discussions need attention`,
+                body: `## 📢 Community Engagement Reminder
+                
+We have ${staleDiscussions.length} discussions that haven't received responses in over a week.
+
+### Discussions Needing Attention:
+${staleDiscussions.map(discussion => 
+  `- [${discussion.title}](${discussion.html_url}) (${discussion.category.name})`
+).join('\n')}
+
+### Action Items:
+- [ ] Review and respond to stale discussions
+- [ ] Tag appropriate team members for technical questions
+- [ ] Close resolved discussions
+- [ ] Update community guidelines if needed
+
+---
+*This reminder was automatically generated by the community engagement workflow.*`,
+                labels: ['type:maintenance', 'automated', 'community-reminder']
+              });
+            }
