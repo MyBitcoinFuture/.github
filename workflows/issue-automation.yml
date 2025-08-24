@@ -1,0 +1,151 @@
+name: Issue Automation
+
+on:
+  issues:
+    types: [opened, edited, labeled, unlabeled]
+  pull_request:
+    types: [opened, edited, labeled, unlabeled]
+
+jobs:
+  auto-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto-label issues and PRs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { issue, pull_request } = context.payload;
+            const item = issue || pull_request;
+            
+            if (!item) return;
+            
+            const labels = new Set(item.labels.map(l => l.name));
+            const body = item.body || '';
+            const title = item.title || '';
+            
+            // Repository-specific labels
+            const repoLabels = {
+              'dashboard': 'repo:dashboard',
+              'website': 'repo:website', 
+              'plugins': 'repo:plugins',
+              'private-plugins': 'repo:private-plugins',
+              'platform-manifests': 'repo:platform-manifests',
+              '.github': 'repo:github'
+            };
+            
+            // Add repository label based on content
+            for (const [repo, label] of Object.entries(repoLabels)) {
+              if (body.toLowerCase().includes(repo) || title.toLowerCase().includes(repo)) {
+                labels.add(label);
+              }
+            }
+            
+            // Priority labels based on keywords
+            if (body.toLowerCase().includes('critical') || title.toLowerCase().includes('critical')) {
+              labels.add('priority:critical');
+            } else if (body.toLowerCase().includes('urgent') || title.toLowerCase().includes('urgent')) {
+              labels.add('priority:high');
+            } else if (body.toLowerCase().includes('important') || title.toLowerCase().includes('important')) {
+              labels.add('priority:medium');
+            }
+            
+            // Type labels based on keywords
+            if (body.toLowerCase().includes('bug') || title.toLowerCase().includes('bug')) {
+              labels.add('type:bug');
+            }
+            if (body.toLowerCase().includes('feature') || title.toLowerCase().includes('feature')) {
+              labels.add('type:enhancement');
+            }
+            if (body.toLowerCase().includes('security') || title.toLowerCase().includes('security')) {
+              labels.add('type:security');
+            }
+            if (body.toLowerCase().includes('documentation') || title.toLowerCase().includes('docs')) {
+              labels.add('type:documentation');
+            }
+            if (body.toLowerCase().includes('plugin') || title.toLowerCase().includes('plugin')) {
+              labels.add('type:plugin');
+            }
+            
+            // Status labels
+            if (body.toLowerCase().includes('help') || body.toLowerCase().includes('question')) {
+              labels.add('status:help-wanted');
+            }
+            if (body.toLowerCase().includes('good first issue') || body.toLowerCase().includes('beginner')) {
+              labels.add('good first issue');
+            }
+            
+            // Update labels if changed
+            const currentLabels = item.labels.map(l => l.name);
+            const newLabels = Array.from(labels);
+            
+            if (JSON.stringify(currentLabels.sort()) !== JSON.stringify(newLabels.sort())) {
+              await github.rest.issues.setLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: item.number,
+                labels: newLabels
+              });
+            }
+
+  triage-issues:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues' && github.event.action == 'opened'
+    steps:
+      - name: Triage new issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { issue } = context.payload;
+            const body = issue.body || '';
+            const title = issue.title || '';
+            const labels = issue.labels.map(l => l.name);
+            
+            // Auto-assign based on issue type
+            let assignees = [];
+            
+            if (labels.includes('type:security')) {
+              assignees.push('core-developers');
+            } else if (labels.includes('type:plugin')) {
+              assignees.push('core-developers');
+            } else if (labels.includes('repo:private-plugins')) {
+              assignees.push('beta-testers');
+            } else if (labels.includes('good first issue')) {
+              assignees.push('community-contributors');
+            }
+            
+            // Add welcome comment for new contributors
+            const isFirstTimeContributor = await isFirstTimeContributor(issue.user.login);
+            
+            if (isFirstTimeContributor) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: `👋 Welcome to MyBitcoinFuture, @${issue.user.login}! 
+
+Thanks for contributing to our project. We're excited to have you here!
+
+**Next Steps:**
+- Our team will review this issue and get back to you soon
+- Feel free to join our [community discussions](https://github.com/MyBitcoinFuture/.github/discussions)
+- Check out our [contributing guidelines](https://github.com/MyBitcoinFuture/.github/blob/main/CONTRIBUTING.md)
+
+If you have any questions, don't hesitate to ask! 🚀`
+              });
+            }
+            
+            // Helper function to check if user is first-time contributor
+            async function isFirstTimeContributor(username) {
+              try {
+                const issues = await github.rest.issues.listForRepo({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  creator: username,
+                  state: 'all'
+                });
+                
+                return issues.data.length <= 1;
+              } catch (error) {
+                return false;
+              }
+            }

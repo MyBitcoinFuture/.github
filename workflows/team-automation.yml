@@ -1,0 +1,242 @@
+name: Team Automation
+
+on:
+  issues:
+    types: [opened, labeled, unlabeled]
+  pull_request:
+    types: [opened, labeled, unlabeled]
+  workflow_dispatch:
+
+jobs:
+  team-assignment:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues' || github.event_name == 'pull_request'
+    steps:
+      - name: Auto-assign to teams
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { issue, pull_request } = context.payload;
+            const item = issue || pull_request;
+            
+            if (!item) return;
+            
+            const labels = item.labels.map(l => l.name);
+            const body = item.body || '';
+            const title = item.title || '';
+            
+            // Team assignment logic
+            let teamAssignments = [];
+            
+            // Security issues go to core developers
+            if (labels.includes('type:security') || 
+                body.toLowerCase().includes('security') || 
+                title.toLowerCase().includes('security')) {
+              teamAssignments.push('core-developers');
+            }
+            
+            // Plugin issues go to core developers
+            if (labels.includes('type:plugin') || 
+                labels.includes('repo:plugins') || 
+                labels.includes('repo:private-plugins') ||
+                body.toLowerCase().includes('plugin') || 
+                title.toLowerCase().includes('plugin')) {
+              teamAssignments.push('core-developers');
+            }
+            
+            // Private plugin issues go to beta testers
+            if (labels.includes('repo:private-plugins')) {
+              teamAssignments.push('beta-testers');
+            }
+            
+            // Good first issues go to community contributors
+            if (labels.includes('good first issue') || 
+                body.toLowerCase().includes('beginner') || 
+                title.toLowerCase().includes('beginner')) {
+              teamAssignments.push('community-contributors');
+            }
+            
+            // Partner-related issues
+            if (body.toLowerCase().includes('partner') || 
+                title.toLowerCase().includes('partner') ||
+                body.toLowerCase().includes('enterprise') || 
+                title.toLowerCase().includes('enterprise')) {
+              teamAssignments.push('partners');
+            }
+            
+            // Advisory board for strategic issues
+            if (body.toLowerCase().includes('strategy') || 
+                title.toLowerCase().includes('strategy') ||
+                body.toLowerCase().includes('roadmap') || 
+                title.toLowerCase().includes('roadmap')) {
+              teamAssignments.push('advisory-board');
+            }
+            
+            // Add team mentions to comments if not already assigned
+            if (teamAssignments.length > 0) {
+              const teamMentions = teamAssignments.map(team => `@MyBitcoinFuture/${team}`).join(' ');
+              
+              // Check if team is already mentioned in recent comments
+              const comments = await github.rest.issues.listComments({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: item.number
+              });
+              
+              const hasTeamMention = comments.data.some(comment => 
+                teamAssignments.some(team => comment.body.includes(`@MyBitcoinFuture/${team}`))
+              );
+              
+              if (!hasTeamMention) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: item.number,
+                  body: `🔔 **Team Notification**
+                  
+This issue has been automatically flagged for the following teams:
+${teamAssignments.map(team => `- ${teamMentions}`).join('\n')}
+
+Please review and take appropriate action.`
+                });
+              }
+            }
+
+  team-notifications:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues' && github.event.action == 'opened'
+    steps:
+      - name: Send team notifications
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { issue } = context.payload;
+            const labels = issue.labels.map(l => l.name);
+            
+            // Determine which teams should be notified
+            let notifications = [];
+            
+            if (labels.includes('type:security')) {
+              notifications.push({
+                team: 'core-developers',
+                message: '🔒 Security issue requires immediate attention'
+              });
+            }
+            
+            if (labels.includes('priority:critical')) {
+              notifications.push({
+                team: 'core-developers',
+                message: '🚨 Critical priority issue requires immediate attention'
+              });
+            }
+            
+            if (labels.includes('repo:private-plugins')) {
+              notifications.push({
+                team: 'beta-testers',
+                message: '🔐 Private plugin issue requires beta tester review'
+              });
+            }
+            
+            // Add notifications to issue
+            if (notifications.length > 0) {
+              const notificationText = notifications.map(n => 
+                `**@MyBitcoinFuture/${n.team}**: ${n.message}`
+              ).join('\n');
+              
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: `📢 **Team Notifications**
+                
+${notificationText}
+
+Please review and respond accordingly.`
+              });
+            }
+
+  team-metrics:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Generate team metrics
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Generate team activity metrics
+            const teams = [
+              'core-developers',
+              'partners', 
+              'beta-testers',
+              'community-contributors',
+              'advisory-board'
+            ];
+            
+            const metrics = {};
+            
+            for (const team of teams) {
+              try {
+                // Get team members
+                const teamMembers = await github.rest.teams.listMembersInOrg({
+                  org: context.repo.owner,
+                  team_slug: team
+                });
+                
+                // Get team's recent activity
+                const issues = await github.rest.issues.listForRepo({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  state: 'all',
+                  since: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString() // Last 30 days
+                });
+                
+                const teamIssues = issues.data.filter(issue => 
+                  issue.assignees.some(assignee => 
+                    teamMembers.data.some(member => member.login === assignee.login)
+                  )
+                );
+                
+                metrics[team] = {
+                  members: teamMembers.data.length,
+                  issues: teamIssues.length,
+                  openIssues: teamIssues.filter(i => i.state === 'open').length,
+                  closedIssues: teamIssues.filter(i => i.state === 'closed').length
+                };
+              } catch (error) {
+                console.log(`Could not get metrics for team ${team}: ${error.message}`);
+                metrics[team] = { members: 0, issues: 0, openIssues: 0, closedIssues: 0 };
+              }
+            }
+            
+            // Create team metrics report
+            const reportBody = `## 📊 Team Activity Report
+            
+**Generated:** ${new Date().toISOString().split('T')[0]}
+**Repository:** ${context.repo.owner}/${context.repo.repo}
+
+### Team Metrics (Last 30 Days)
+
+${Object.entries(metrics).map(([team, data]) => `
+#### @MyBitcoinFuture/${team}
+- **Members:** ${data.members}
+- **Total Issues:** ${data.issues}
+- **Open Issues:** ${data.openIssues}
+- **Closed Issues:** ${data.closedIssues}
+- **Activity Level:** ${data.issues > 10 ? '🔥 High' : data.issues > 5 ? '⚡ Medium' : '📉 Low'}
+`).join('\n')}
+
+### Recommendations
+- Teams with low activity should be reviewed
+- Consider rebalancing workload across teams
+- Update team assignments as needed
+
+---
+*This report was automatically generated by the team automation workflow.*`;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `📊 Team Activity Report - ${new Date().toISOString().split('T')[0]}`,
+              body: reportBody,
+              labels: ['type:documentation', 'automated', 'team-metrics']
+            });

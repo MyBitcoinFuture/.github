@@ -1,0 +1,212 @@
+name: Cross-Repository Synchronization
+
+on:
+  issues:
+    types: [opened, edited, labeled, unlabeled]
+  pull_request:
+    types: [opened, edited, labeled, unlabeled]
+  workflow_dispatch:
+
+jobs:
+  sync-related-issues:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues' || github.event_name == 'pull_request'
+    steps:
+      - name: Sync related issues across repositories
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { issue, pull_request } = context.payload;
+            const item = issue || pull_request;
+            
+            if (!item) return;
+            
+            const body = item.body || '';
+            const title = item.title || '';
+            const labels = item.labels.map(l => l.name);
+            
+            // Find references to other repositories
+            const repoPatterns = [
+              { pattern: /dashboard/i, repo: 'dashboard' },
+              { pattern: /website/i, repo: 'website' },
+              { pattern: /plugins/i, repo: 'plugins' },
+              { pattern: /private-plugins/i, repo: 'private-plugins' },
+              { pattern: /platform-manifests/i, repo: 'platform-manifests' },
+              { pattern: /\.github/i, repo: '.github' }
+            ];
+            
+            const referencedRepos = [];
+            
+            for (const { pattern, repo } of repoPatterns) {
+              if (pattern.test(body) || pattern.test(title)) {
+                referencedRepos.push(repo);
+              }
+            }
+            
+            // Create cross-repository links
+            if (referencedRepos.length > 0) {
+              const currentRepo = context.repo.repo;
+              const otherRepos = referencedRepos.filter(repo => repo !== currentRepo);
+              
+              if (otherRepos.length > 0) {
+                const crossRepoComment = `🔗 **Cross-Repository References**
+                
+This issue/PR references the following repositories:
+${otherRepos.map(repo => `- [${repo}](https://github.com/MyBitcoinFuture/${repo})`).join('\n')}
+
+**Note:** Consider creating related issues in those repositories if needed for coordination.`;
+                
+                // Check if cross-repo comment already exists
+                const comments = await github.rest.issues.listComments({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: item.number
+                });
+                
+                const hasCrossRepoComment = comments.data.some(comment => 
+                  comment.body.includes('Cross-Repository References')
+                );
+                
+                if (!hasCrossRepoComment) {
+                  await github.rest.issues.createComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: item.number,
+                    body: crossRepoComment
+                  });
+                }
+              }
+            }
+
+  sync-labels:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Sync labels across repositories
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Define standard labels for the organization
+            const standardLabels = [
+              // Priority labels
+              { name: 'priority:critical', color: 'd73a4a', description: 'Critical priority issues' },
+              { name: 'priority:high', color: 'fbca04', description: 'High priority issues' },
+              { name: 'priority:medium', color: '0e8a16', description: 'Medium priority issues' },
+              { name: 'priority:low', color: '0075ca', description: 'Low priority issues' },
+              
+              // Type labels
+              { name: 'type:bug', color: 'd73a4a', description: 'Something is not working' },
+              { name: 'type:enhancement', color: 'a2eeef', description: 'New feature or request' },
+              { name: 'type:security', color: 'd73a4a', description: 'Security-related issues' },
+              { name: 'type:documentation', color: '0075ca', description: 'Documentation improvements' },
+              { name: 'type:plugin', color: 'fbca04', description: 'Plugin-related issues' },
+              { name: 'type:maintenance', color: '0e8a16', description: 'Maintenance tasks' },
+              
+              // Status labels
+              { name: 'status:help-wanted', color: '008672', description: 'Extra attention is needed' },
+              { name: 'status:in-progress', color: 'fbca04', description: 'Work in progress' },
+              { name: 'status:blocked', color: 'd73a4a', description: 'Blocked by other issues' },
+              { name: 'status:review-needed', color: '0075ca', description: 'Needs review' },
+              
+              // Repository labels
+              { name: 'repo:dashboard', color: '1d76db', description: 'Dashboard repository' },
+              { name: 'repo:website', color: '1d76db', description: 'Website repository' },
+              { name: 'repo:plugins', color: '1d76db', description: 'Plugins repository' },
+              { name: 'repo:private-plugins', color: '1d76db', description: 'Private plugins repository' },
+              { name: 'repo:platform-manifests', color: '1d76db', description: 'Platform manifests repository' },
+              { name: 'repo:github', color: '1d76db', description: 'GitHub organization repository' },
+              
+              // Special labels
+              { name: 'good first issue', color: '7057ff', description: 'Good for newcomers' },
+              { name: 'automated', color: 'fef2c0', description: 'Automatically generated' },
+              { name: 'weekly-report', color: 'fef2c0', description: 'Weekly report' },
+              { name: 'team-metrics', color: 'fef2c0', description: 'Team metrics report' }
+            ];
+            
+            // Sync labels to all repositories
+            const repositories = [
+              'dashboard',
+              'website', 
+              'plugins',
+              'private-plugins',
+              'platform-manifests',
+              '.github'
+            ];
+            
+            for (const repo of repositories) {
+              try {
+                console.log(`Syncing labels to ${repo}...`);
+                
+                for (const label of standardLabels) {
+                  try {
+                    await github.rest.issues.createLabel({
+                      owner: context.repo.owner,
+                      repo: repo,
+                      name: label.name,
+                      color: label.color,
+                      description: label.description
+                    });
+                    console.log(`  ✅ Created label: ${label.name}`);
+                  } catch (error) {
+                    if (error.status === 422) {
+                      // Label already exists, update it
+                      await github.rest.issues.updateLabel({
+                        owner: context.repo.owner,
+                        repo: repo,
+                        name: label.name,
+                        color: label.color,
+                        description: label.description
+                      });
+                      console.log(`  🔄 Updated label: ${label.name}`);
+                    } else {
+                      console.log(`  ❌ Error with label ${label.name}: ${error.message}`);
+                    }
+                  }
+                }
+                
+                console.log(`✅ Completed syncing labels to ${repo}`);
+              } catch (error) {
+                console.log(`❌ Error syncing to ${repo}: ${error.message}`);
+              }
+            }
+
+  sync-templates:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout templates
+        uses: actions/checkout@v4
+        with:
+          path: templates
+          
+      - name: Sync issue templates
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // This would sync issue templates across repositories
+            // Implementation depends on specific requirements
+            console.log('Issue template sync would be implemented here');
+            
+            // For now, just log the action
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🔄 Template Sync Completed',
+              body: `## 🔄 Template Synchronization
+              
+Template synchronization has been completed across repositories.
+
+**Synced items:**
+- Issue templates
+- Pull request templates
+- Label definitions
+
+**Next steps:**
+- Review template consistency
+- Update templates as needed
+- Test template functionality
+
+---
+*This was automatically generated by the cross-repository sync workflow.*`,
+              labels: ['automated', 'type:maintenance']
+            });

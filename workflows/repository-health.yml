@@ -1,0 +1,229 @@
+name: Repository Health Monitoring
+
+on:
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  stale-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mark stale issues and pull requests
+        uses: actions/stale@v8
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          stale-issue-message: |
+            This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.
+          stale-pr-message: |
+            This pull request has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.
+          stale-issue-label: 'no-remove'
+          stale-pr-label: 'no-remove'
+          days-before-stale: 30
+          days-before-close: 7
+          exempt-issue-labels: 'pinned,security,priority:critical,priority:high'
+          exempt-pr-labels: 'pinned,security,priority:critical,priority:high'
+          exempt-all-milestones: true
+
+  dependency-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Check for outdated dependencies
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            
+            // Check for package.json files
+            const packageFiles = [];
+            
+            function findPackageFiles(dir) {
+              const items = fs.readdirSync(dir);
+              for (const item of items) {
+                const fullPath = path.join(dir, item);
+                const stat = fs.statSync(fullPath);
+                
+                if (stat.isDirectory() && !item.startsWith('.') && item !== 'node_modules') {
+                  findPackageFiles(fullPath);
+                } else if (item === 'package.json') {
+                  packageFiles.push(fullPath);
+                }
+              }
+            }
+            
+            findPackageFiles('.');
+            
+            if (packageFiles.length > 0) {
+              console.log(`Found ${packageFiles.length} package.json files`);
+              
+              // Create issue for outdated dependencies if needed
+              const issueTitle = '🔍 Dependency Update Check';
+              const existingIssues = await github.rest.issues.listForRepo({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'open',
+                labels: 'type:maintenance'
+              });
+              
+              const hasDependencyIssue = existingIssues.data.some(issue => 
+                issue.title.includes('Dependency Update Check')
+              );
+              
+              if (!hasDependencyIssue) {
+                await github.rest.issues.create({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  title: issueTitle,
+                  body: `## 🔍 Dependency Update Check
+                  
+This is an automated check for outdated dependencies across the repository.
+
+**Package files found:** ${packageFiles.length}
+
+**Next steps:**
+- [ ] Review package.json files for outdated dependencies
+- [ ] Update dependencies as needed
+- [ ] Test changes thoroughly
+- [ ] Update this issue with results
+
+**Files to check:**
+${packageFiles.map(file => `- \`${file}\``).join('\n')}
+
+---
+*This issue was automatically created by the repository health monitoring workflow.*`,
+                  labels: ['type:maintenance', 'automated']
+                });
+              }
+            }
+
+  security-alerts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for security alerts
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Check for Dependabot alerts
+            try {
+              const alerts = await github.rest.dependabot.listAlertsForRepo({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'open'
+              });
+              
+              if (alerts.data.length > 0) {
+                console.log(`Found ${alerts.data.length} security alerts`);
+                
+                // Create issue for security alerts if needed
+                const issueTitle = '🔒 Security Alerts Detected';
+                const existingIssues = await github.rest.issues.listForRepo({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  state: 'open',
+                  labels: 'type:security'
+                });
+                
+                const hasSecurityIssue = existingIssues.data.some(issue => 
+                  issue.title.includes('Security Alerts Detected')
+                );
+                
+                if (!hasSecurityIssue) {
+                  await github.rest.issues.create({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    title: issueTitle,
+                    body: `## 🔒 Security Alerts Detected
+                    
+This is an automated alert for security vulnerabilities in dependencies.
+
+**Alerts found:** ${alerts.data.length}
+
+**Next steps:**
+- [ ] Review Dependabot alerts in the Security tab
+- [ ] Update vulnerable dependencies
+- [ ] Test changes thoroughly
+- [ ] Update this issue with results
+
+**Alert details:**
+${alerts.data.map(alert => `- \`${alert.dependency.package.name}\`: ${alert.security_vulnerability.severity} severity`).join('\n')}
+
+---
+*This issue was automatically created by the repository health monitoring workflow.*`,
+                    labels: ['type:security', 'priority:high', 'automated']
+                  });
+                }
+              }
+            } catch (error) {
+              console.log('No Dependabot alerts found or access denied');
+            }
+
+  repository-metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate repository metrics
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Generate basic repository metrics
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            });
+            
+            const prs = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            });
+            
+            const stars = await github.rest.activity.listStargazersForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            
+            const forks = await github.rest.repos.listForks({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            
+            console.log(`Repository Health Report for ${context.repo.owner}/${context.repo.repo}:`);
+            console.log(`- Open Issues: ${issues.data.length}`);
+            console.log(`- Open PRs: ${prs.data.length}`);
+            console.log(`- Stars: ${stars.data.length}`);
+            console.log(`- Forks: ${forks.data.length}`);
+            
+            // Create weekly report if it's Monday
+            const today = new Date();
+            if (today.getDay() === 1) { // Monday
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `📊 Weekly Repository Health Report - ${today.toISOString().split('T')[0]}`,
+                body: `## 📊 Weekly Repository Health Report
+                
+**Repository:** ${context.repo.owner}/${context.repo.repo}
+**Date:** ${today.toISOString().split('T')[0]}
+
+### 📈 Metrics
+- **Open Issues:** ${issues.data.length}
+- **Open PRs:** ${prs.data.length}
+- **Stars:** ${stars.data.length}
+- **Forks:** ${forks.data.length}
+
+### 🎯 Action Items
+- [ ] Review and triage open issues
+- [ ] Review and merge open PRs
+- [ ] Address any security alerts
+- [ ] Update documentation as needed
+
+---
+*This report was automatically generated by the repository health monitoring workflow.*`,
+                labels: ['type:documentation', 'automated', 'weekly-report']
+              });
+            }
