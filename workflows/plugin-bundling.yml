@@ -1,0 +1,84 @@
+name: Plugin Bundling & Branded Installers
+
+on:
+  push:
+    branches: [main]
+    paths: ['plugins/**', 'private-plugins/**']
+  workflow_dispatch:
+    inputs:
+      affiliate_code:
+        description: 'Affiliate code for branded installer'
+        required: false
+        default: 'DEFAULT'
+      branding_config:
+        description: 'Branding configuration JSON'
+        required: false
+        default: '{"companyName": "MyBitcoinFuture", "supportEmail": "support@mybitcoinfuture.com"}'
+
+jobs:
+  bundle-plugins:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: |
+          npm ci
+          cd ../plugins && npm ci
+          cd ../private-plugins && npm ci
+          
+      - name: Build plugins
+        run: |
+          cd ../plugins && npm run build
+          cd ../private-plugins && npm run build
+          
+      - name: Generate branded installers
+        run: |
+          node scripts/generate-branded-installers.js \
+            --affiliate-code ${{ github.event.inputs.affiliate_code || 'DEFAULT' }} \
+            --branding-config '${{ github.event.inputs.branding_config || '{"companyName": "MyBitcoinFuture", "supportEmail": "support@mybitcoinfuture.com"}' }}'
+        env:
+          NODE_ENV: production
+          
+      - name: Upload branded installers
+        uses: actions/upload-artifact@v4
+        with:
+          name: branded-installers-${{ github.run_number }}
+          path: dist/installers/
+          retention-days: 30
+          
+      - name: Create release
+        if: github.ref == 'refs/heads/main'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: Plugin Bundle v${{ github.run_number }}
+          body: |
+            Automated plugin bundle with branded installers.
+            
+            **Affiliate Code**: ${{ github.event.inputs.affiliate_code || 'DEFAULT' }}
+            **Generated**: ${{ github.event.inputs.affiliate_code || 'DEFAULT' }}
+            
+            Download branded installers from the artifacts.
+          draft: false
+          prerelease: false
+          
+      - name: Notify on success
+        if: success()
+        run: |
+          echo "✅ Plugin bundling completed successfully"
+          echo "📦 Branded installers generated for affiliate: ${{ github.event.inputs.affiliate_code || 'DEFAULT' }}"
+          echo "🎯 Release created: v${{ github.run_number }}"
+
+
