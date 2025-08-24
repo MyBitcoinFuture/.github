@@ -1,0 +1,156 @@
+name: 🔌 Plugin Request
+description: Request a new plugin or plugin enhancement for the MyBitcoinFuture platform
+title: "[PLUGIN] "
+labels: ["plugin", "enhancement", "needs-triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for requesting a plugin! Plugins extend the functionality of the MyBitcoinFuture platform. Please provide detailed information to help us understand your needs.
+
+  - type: dropdown
+    id: plugin-type
+    attributes:
+      label: Plugin Type
+      description: What type of plugin are you requesting?
+      options:
+        - New Plugin
+        - Plugin Enhancement
+        - Plugin Integration
+        - Plugin Documentation
+        - Plugin Example
+    validations:
+      required: true
+
+  - type: dropdown
+    id: repository
+    attributes:
+      label: Target Repository
+      description: Which plugin repository should this be implemented in?
+      options:
+        - plugins (Open Source)
+        - private-plugins (Premium/Enterprise)
+    validations:
+      required: true
+
+  - type: textarea
+    id: plugin-name
+    attributes:
+      label: Plugin Name
+      description: What should this plugin be called?
+      placeholder: e.g., "Bitcoin Analytics", "Treasury Reporting", "Security Monitor"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Plugin Description
+      description: A clear and concise description of what this plugin should do
+      placeholder: Describe the plugin's functionality and purpose...
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-cases
+    attributes:
+      label: Use Cases
+      description: Describe specific use cases or scenarios for this plugin
+      placeholder: |
+        - Use case 1: [Description]
+        - Use case 2: [Description]
+        - Use case 3: [Description]
+    validations:
+      required: true
+
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: Estimated Complexity
+      description: How complex do you think this plugin would be to implement?
+      options:
+        - Simple (Basic functionality)
+        - Medium (Moderate complexity)
+        - Complex (Advanced features)
+        - Very Complex (Enterprise-level)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: audience
+    attributes:
+      label: Target Audience
+      description: Who would use this plugin?
+      options:
+        - End Users (Organizations)
+        - Developers
+        - Administrators
+        - Partners
+        - All Users
+    validations:
+      required: true
+
+  - type: textarea
+    id: features
+    attributes:
+      label: Key Features
+      description: List the main features this plugin should provide
+      placeholder: |
+        - Feature 1: [Description]
+        - Feature 2: [Description]
+        - Feature 3: [Description]
+
+  - type: textarea
+    id: integrations
+    attributes:
+      label: Integrations
+      description: What external services or APIs should this plugin integrate with?
+      placeholder: |
+        - Service 1: [Purpose]
+        - Service 2: [Purpose]
+        - API: [Purpose]
+
+  - type: textarea
+    id: technical
+    attributes:
+      label: Technical Requirements
+      description: Any technical requirements, constraints, or implementation details
+      placeholder: |
+        - Performance requirements
+        - Security considerations
+        - Data storage needs
+        - API requirements
+
+  - type: textarea
+    id: mockups
+    attributes:
+      label: UI/UX Mockups
+      description: If applicable, add mockups or wireframes for the plugin interface
+      placeholder: |
+        [Add mockups, wireframes, or design concepts here]
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Similar Plugins
+      description: Are there similar plugins or tools that you can reference?
+      placeholder: |
+        - Plugin/Tool 1: [What you like about it]
+        - Plugin/Tool 2: [What you like about it]
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Add any other context or information about the plugin request
+      placeholder: Any additional information that might be helpful...
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this plugin request, you agree to follow our Code of Conduct
+      options:
+        - label: I agree to follow the [Code of Conduct](https://github.com/MyBitcoinFuture/.github/blob/main/CODE_OF_CONDUCT.md)
+          required: true

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security Issues
+    url: mailto:security@mybitcoinfuture.com
+    about: Please report security vulnerabilities via email instead of creating a public issue.
+  - name: Community Discussions
+    url: https://github.com/MyBitcoinFuture/.github/discussions
+    about: Join our community discussions for general questions and help.
+  - name: Documentation
+    url: https://github.com/MyBitcoinFuture/website
+    about: Check our documentation for setup guides and tutorials.

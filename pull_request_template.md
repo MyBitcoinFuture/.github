@@ -16,9 +16,9 @@ A clear and concise description of what this pull request does.
 
 ### Repository
 - [ ] dashboard
+- [ ] website
 - [ ] plugins
-- [ ] core
-- [ ] monitoring
+- [ ] private-plugins
 - [ ] platform-manifests
 - [ ] .github (organization-wide)
 
@@ -106,4 +106,4 @@ A clear and concise description of how this feature solves the problem.
 - [ ] README updated
 - [ ] API documentation updated
 - [ ] Code comments added
-- [ ] User guide updated 
+- [ ] User guide updated

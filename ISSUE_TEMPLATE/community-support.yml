@@ -1,0 +1,133 @@
+name: 🤝 Community Support
+description: Get help from the community or ask general questions
+title: "[SUPPORT] "
+labels: ["support", "community", "needs-triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Welcome to the MyBitcoinFuture community! This template is for general questions, help requests, and community support.
+
+  - type: dropdown
+    id: support-type
+    attributes:
+      label: Support Type
+      description: What type of support do you need?
+      options:
+        - General Question
+        - Setup Help
+        - Configuration Help
+        - Usage Question
+        - Troubleshooting
+        - Best Practices
+        - Community Discussion
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: repository
+    attributes:
+      label: Related Repository
+      description: Which repository is your question related to?
+      options:
+        - dashboard
+        - website
+        - plugins
+        - private-plugins
+        - platform-manifests
+        - .github
+        - General/All
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: What would you like help with?
+      placeholder: Describe your question or what you need help with...
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Provide context about your situation
+      placeholder: |
+        - What are you trying to accomplish?
+        - What have you tried so far?
+        - What is your current setup?
+
+  - type: dropdown
+    id: experience
+    attributes:
+      label: Experience Level
+      description: What is your experience level with this technology?
+      options:
+        - Beginner (New to this)
+        - Intermediate (Some experience)
+        - Advanced (Experienced user)
+        - Expert (Very experienced)
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: What version are you using?
+      placeholder: e.g., v1.2.3, commit hash, or "latest"
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: What platform are you using?
+      options:
+        - Linux
+        - macOS
+        - Windows
+        - Web Browser
+        - Mobile
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: error-messages
+    attributes:
+      label: Error Messages (if applicable)
+      description: If you're getting error messages, please include them here
+      placeholder: |
+        ```
+        [Paste error messages here]
+        ```
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots (if applicable)
+      description: If applicable, add screenshots to help explain your question
+      placeholder: |
+        [Add screenshots here]
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Any other information that might be helpful
+      placeholder: Any additional context or information...
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Community Guidelines
+      description: By submitting this support request, you agree to our community guidelines
+      options:
+        - label: I agree to follow the [Code of Conduct](https://github.com/MyBitcoinFuture/.github/blob/main/CODE_OF_CONDUCT.md)
+          required: true
+        - label: I have searched existing issues and discussions before posting
+          required: true
