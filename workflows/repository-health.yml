@@ -227,3 +227,7 @@ ${alerts.data.map(alert => `- \`${alert.dependency.package.name}\`: ${alert.secu
                 labels: ['type:documentation', 'automated', 'weekly-report']
               });
             }
+
+
+
+

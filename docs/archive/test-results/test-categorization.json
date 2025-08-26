@@ -1,0 +1,1430 @@
+{
+  "timestamp": "2025-08-25T03:38:10.640Z",
+  "summary": {
+    "totalTests": 132,
+    "categories": {
+      "requires-database": 87,
+      "local-only": 31,
+      "requires-bitcoin-core": 3,
+      "requires-plugins": 5,
+      "requires-electrum": 2,
+      "requires-external-apis": 4
+    }
+  },
+  "categories": {
+    "requires-database": [
+      {
+        "file": "test/e2e/electron-integration.test.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "electron-integration.test.js"
+      },
+      {
+        "file": "test/e2e/platform-integration.test.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "BRK service calls detected",
+          "E2E test file"
+        ],
+        "fileName": "platform-integration.test.js"
+      },
+      {
+        "file": "test/integration/api/refactored-api.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Integration test file"
+        ],
+        "fileName": "refactored-api.test.js"
+      },
+      {
+        "file": "test/integration/api/api.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "External API calls detected",
+          "Database operations detected",
+          "Integration test file"
+        ],
+        "fileName": "api.test.js"
+      },
+      {
+        "file": "test/integration/api/NotificationServiceV2.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Integration test file"
+        ],
+        "fileName": "NotificationServiceV2.test.js"
+      },
+      {
+        "file": "test/integration/brk/brk-integration.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "BRK service calls detected",
+          "Integration test file"
+        ],
+        "fileName": "brk-integration.test.js"
+      },
+      {
+        "file": "test/integration/brk/enhanced-brk-integration.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "BRK service calls detected",
+          "Integration test file"
+        ],
+        "fileName": "enhanced-brk-integration.test.js"
+      },
+      {
+        "file": "test/integration/cli-integration.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Bitcoin Core RPC calls detected",
+          "External API calls detected",
+          "Integration test file"
+        ],
+        "fileName": "cli-integration.test.js"
+      },
+      {
+        "file": "test/integration/cli/cli-integration.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Bitcoin Core RPC calls detected",
+          "Mempool.space API calls detected",
+          "External API calls detected",
+          "Integration test file"
+        ],
+        "fileName": "cli-integration.test.js"
+      },
+      {
+        "file": "test/integration/api-fixed.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected",
+          "Integration test file"
+        ],
+        "fileName": "api-fixed.test.js"
+      },
+      {
+        "file": "test/integration/api-server-auth.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected",
+          "Integration test file"
+        ],
+        "fileName": "api-server-auth.test.js"
+      },
+      {
+        "file": "test/integration/api-server.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected",
+          "Integration test file"
+        ],
+        "fileName": "api-server.test.js"
+      },
+      {
+        "file": "test/integration/api.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected",
+          "Integration test file"
+        ],
+        "fileName": "api.test.js"
+      },
+      {
+        "file": "test/integration/brk-binary-integration.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Integration test file"
+        ],
+        "fileName": "brk-binary-integration.test.js"
+      },
+      {
+        "file": "test/integration/core-functionality.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected",
+          "Integration test file"
+        ],
+        "fileName": "core-functionality.test.js"
+      },
+      {
+        "file": "test/integration/error-handling.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected",
+          "Integration test file"
+        ],
+        "fileName": "error-handling.test.js"
+      },
+      {
+        "file": "test/integration/performance.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Integration test file"
+        ],
+        "fileName": "performance.test.js"
+      },
+      {
+        "file": "test/integration/refactored-api.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Integration test file"
+        ],
+        "fileName": "refactored-api.test.js"
+      },
+      {
+        "file": "test/integration/setup-functionality.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected",
+          "Integration test file"
+        ],
+        "fileName": "setup-functionality.test.js"
+      },
+      {
+        "file": "test/integration/setup-regression.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected",
+          "Integration test file"
+        ],
+        "fileName": "setup-regression.test.js"
+      },
+      {
+        "file": "test/integration/auth-workflow.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected",
+          "Integration test file"
+        ],
+        "fileName": "auth-workflow.test.js"
+      },
+      {
+        "file": "test/integration/hardware-wallet-api.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Plugin system dependencies detected",
+          "Integration test file"
+        ],
+        "fileName": "hardware-wallet-api.test.js"
+      },
+      {
+        "file": "test/integration/real-infrastructure.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Bitcoin Core RPC calls detected",
+          "Mempool.space API calls detected",
+          "Electrum server calls detected",
+          "Integration test file"
+        ],
+        "fileName": "real-infrastructure.test.js"
+      },
+      {
+        "file": "test/integration/integration-comprehensive.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected",
+          "Integration test file"
+        ],
+        "fileName": "integration-comprehensive.test.js"
+      },
+      {
+        "file": "test/integration/integration.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Plugin system dependencies detected",
+          "Integration test file"
+        ],
+        "fileName": "integration.test.js"
+      },
+      {
+        "file": "test/unit/repositories/base-repository.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "base-repository.test.js"
+      },
+      {
+        "file": "test/unit/repositories/wallet-repository.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "wallet-repository.test.js"
+      },
+      {
+        "file": "test/unit/repositories/TransactionRepository.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "TransactionRepository.test.js"
+      },
+      {
+        "file": "test/unit/repositories/UtxoRepository.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "UtxoRepository.test.js"
+      },
+      {
+        "file": "test/unit/repositories/user-repository.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "user-repository.test.js"
+      },
+      {
+        "file": "test/unit/services/alert-service.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "alert-service.test.js"
+      },
+      {
+        "file": "test/unit/services/price-cache-service.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "price-cache-service.test.js"
+      },
+      {
+        "file": "test/unit/services/report-service.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "report-service.test.js"
+      },
+      {
+        "file": "test/unit/services/transaction-service.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "transaction-service.test.js"
+      },
+      {
+        "file": "test/unit/services/BitcoinDataService.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Bitcoin Core RPC calls detected",
+          "Mempool.space API calls detected",
+          "Electrum server calls detected",
+          "BRK service calls detected",
+          "External API calls detected",
+          "Database operations detected"
+        ],
+        "fileName": "BitcoinDataService.test.js"
+      },
+      {
+        "file": "test/unit/services/SecurityService.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Bitcoin Core RPC calls detected",
+          "Database operations detected"
+        ],
+        "fileName": "SecurityService.test.js"
+      },
+      {
+        "file": "test/unit/services/balance-service.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Bitcoin Core RPC calls detected",
+          "Database operations detected"
+        ],
+        "fileName": "balance-service.test.js"
+      },
+      {
+        "file": "test/unit/services/wallet-service.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "wallet-service.test.js"
+      },
+      {
+        "file": "test/unit/services/bitcoin-data-service.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Bitcoin Core RPC calls detected",
+          "Electrum server calls detected",
+          "Database operations detected"
+        ],
+        "fileName": "bitcoin-data-service.test.js"
+      },
+      {
+        "file": "test/unit/services/performance-attribution-service.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "performance-attribution-service.test.js"
+      },
+      {
+        "file": "test/unit/alert-service.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "alert-service.test.js"
+      },
+      {
+        "file": "test/unit/balance-service.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Bitcoin Core RPC calls detected",
+          "Database operations detected"
+        ],
+        "fileName": "balance-service.test.js"
+      },
+      {
+        "file": "test/unit/base-repository.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "base-repository.test.js"
+      },
+      {
+        "file": "test/unit/improvements.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "improvements.test.js"
+      },
+      {
+        "file": "test/unit/price-cache-service.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "price-cache-service.test.js"
+      },
+      {
+        "file": "test/unit/report-service.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "report-service.test.js"
+      },
+      {
+        "file": "test/unit/transaction-service.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "transaction-service.test.js"
+      },
+      {
+        "file": "test/unit/user-repository.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "user-repository.test.js"
+      },
+      {
+        "file": "test/unit/utxo-service.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "utxo-service.test.js"
+      },
+      {
+        "file": "test/unit/wallet-repository.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "wallet-repository.test.js"
+      },
+      {
+        "file": "test/unit/api/wallet-endpoints.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "wallet-endpoints.test.js"
+      },
+      {
+        "file": "test/unit/auth-system-fixed.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "auth-system-fixed.test.js"
+      },
+      {
+        "file": "test/unit/auth-system-simple.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "auth-system-simple.test.js"
+      },
+      {
+        "file": "test/unit/auth-system.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "auth-system.test.js"
+      },
+      {
+        "file": "test/shared/utils/utxo-service.test.js",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected"
+        ],
+        "fileName": "utxo-service.test.js"
+      },
+      {
+        "file": "web/tests/e2e/bitcoin-treasury-workflow.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "bitcoin-treasury-workflow.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/basic-dashboard.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "basic-dashboard.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/visual-regression.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "visual-regression.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/visual-regression-simple.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "visual-regression-simple.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/visual-regression-working.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "visual-regression-working.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/accessibility-compliance.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "accessibility-compliance.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/accessibility-simple.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "accessibility-simple.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/accessibility-working.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "accessibility-working.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/component-specific.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "component-specific.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/subsystem-integration.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "Plugin system dependencies detected",
+          "E2E test file"
+        ],
+        "fileName": "subsystem-integration.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/component-specific-working.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "component-specific-working.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/subsystem-integration-working.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "Plugin system dependencies detected",
+          "E2E test file"
+        ],
+        "fileName": "subsystem-integration-working.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/theme-system.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "theme-system.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/enhanced-setup.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "External API calls detected",
+          "E2E test file"
+        ],
+        "fileName": "enhanced-setup.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/plugins/accounting-integration.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "accounting-integration.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/plugins/custom-branding.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "custom-branding.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/plugins/plugin-system.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "Plugin system dependencies detected",
+          "E2E test file"
+        ],
+        "fileName": "plugin-system.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/plugins/hardware-wallet-integration.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "hardware-wallet-integration.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/auth-workflows.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "External API calls detected",
+          "Database operations detected",
+          "E2E test file"
+        ],
+        "fileName": "auth-workflows.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/branded-installer.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "External API calls detected",
+          "E2E test file"
+        ],
+        "fileName": "branded-installer.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/bitcoin-core-integration.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "Bitcoin Core RPC calls detected",
+          "E2E test file"
+        ],
+        "fileName": "bitcoin-core-integration.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/minimal-onboarding.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "minimal-onboarding.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/onboarding-wizard.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "Plugin system dependencies detected",
+          "E2E test file"
+        ],
+        "fileName": "onboarding-wizard.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/simple-test.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "simple-test.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/treasury-portfolio-dashboard.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "treasury-portfolio-dashboard.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/treasury-security-compliance.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "treasury-security-compliance.spec.js"
+      },
+      {
+        "file": "web/tests/e2e/treasury-wallet-management.spec.js",
+        "category": "requires-database",
+        "confidence": "high",
+        "reasons": [
+          "E2E test file"
+        ],
+        "fileName": "treasury-wallet-management.spec.js"
+      },
+      {
+        "file": "web/src/tests/integration/OnboardingPluginIntegration.test.jsx",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Plugin system dependencies detected",
+          "Integration test file"
+        ],
+        "fileName": "OnboardingPluginIntegration.test.jsx"
+      },
+      {
+        "file": "web/src/tests/integration/OnboardingWizard.test.jsx",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Plugin system dependencies detected",
+          "Integration test file"
+        ],
+        "fileName": "OnboardingWizard.test.jsx"
+      },
+      {
+        "file": "web/src/tests/integration/simple-onboarding.test.jsx",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Plugin system dependencies detected",
+          "Integration test file"
+        ],
+        "fileName": "simple-onboarding.test.jsx"
+      },
+      {
+        "file": "web/src/tests/integration/WidgetIntegrationTests.test.jsx",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Database operations detected",
+          "Integration test file"
+        ],
+        "fileName": "WidgetIntegrationTests.test.jsx"
+      },
+      {
+        "file": "web/tests/integration/OnboardingPluginIntegration.test.jsx",
+        "category": "requires-database",
+        "confidence": "medium",
+        "reasons": [
+          "Plugin system dependencies detected",
+          "Integration test file"
+        ],
+        "fileName": "OnboardingPluginIntegration.test.jsx"
+      }
+    ],
+    "local-only": [
+      {
+        "file": "test/performance/performance.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "performance.test.js"
+      },
+      {
+        "file": "test/performance/cache-performance.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "cache-performance.test.js"
+      },
+      {
+        "file": "test/unit/repositories/report-registry.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "report-registry.test.js"
+      },
+      {
+        "file": "test/unit/services/advanced-report-service.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "advanced-report-service.test.js"
+      },
+      {
+        "file": "test/unit/services/mock-job-service.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "mock-job-service.test.js"
+      },
+      {
+        "file": "test/unit/services/mock-mempool-service.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "mock-mempool-service.test.js"
+      },
+      {
+        "file": "test/unit/services/risk-analysis-service.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "risk-analysis-service.test.js"
+      },
+      {
+        "file": "test/unit/services/DataExportImportService.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "DataExportImportService.test.js"
+      },
+      {
+        "file": "test/unit/services/NotificationService.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "NotificationService.test.js"
+      },
+      {
+        "file": "test/unit/advanced-report-service.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "advanced-report-service.test.js"
+      },
+      {
+        "file": "test/unit/bitcoin-utils.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "bitcoin-utils.test.js"
+      },
+      {
+        "file": "test/unit/error-sanitizer.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "error-sanitizer.test.js"
+      },
+      {
+        "file": "test/unit/mock-job-service.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "mock-job-service.test.js"
+      },
+      {
+        "file": "test/unit/mock-mempool-service.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "mock-mempool-service.test.js"
+      },
+      {
+        "file": "test/unit/performance-attribution-service.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "performance-attribution-service.test.js"
+      },
+      {
+        "file": "test/unit/rate-limiter.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "rate-limiter.test.js"
+      },
+      {
+        "file": "test/unit/risk-analysis-service.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "risk-analysis-service.test.js"
+      },
+      {
+        "file": "test/unit/wallet-service.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "wallet-service.test.js"
+      },
+      {
+        "file": "test/unit/xpub-service.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "xpub-service.test.js"
+      },
+      {
+        "file": "test/unit/NotificationServiceV2.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "NotificationServiceV2.test.js"
+      },
+      {
+        "file": "test/shared/utils/CacheManager.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "CacheManager.test.js"
+      },
+      {
+        "file": "test/shared/utils/xpub-service.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "xpub-service.test.js"
+      },
+      {
+        "file": "web/src/utils/formatters.test.js",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "formatters.test.js"
+      },
+      {
+        "file": "web/src/UsersPage.test.jsx",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "UsersPage.test.jsx"
+      },
+      {
+        "file": "web/src/WalletsPage.test.jsx",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "WalletsPage.test.jsx"
+      },
+      {
+        "file": "web/src/components/SimpleTest.test.jsx",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "SimpleTest.test.jsx"
+      },
+      {
+        "file": "web/src/components/AdvancedComponents.test.jsx",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "AdvancedComponents.test.jsx"
+      },
+      {
+        "file": "web/src/tests/design-system/ComponentTestSuite.test.jsx",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "ComponentTestSuite.test.jsx"
+      },
+      {
+        "file": "web/src/tests/user-stories/BitcoinUserStories.test.jsx",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "BitcoinUserStories.test.jsx"
+      },
+      {
+        "file": "web/src/tests/long-term/ConfigAndLoggingTests.test.jsx",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "ConfigAndLoggingTests.test.jsx"
+      },
+      {
+        "file": "web/src/App.test.jsx",
+        "category": "local-only",
+        "confidence": "low",
+        "reasons": [],
+        "fileName": "App.test.jsx"
+      }
+    ],
+    "requires-bitcoin-core": [
+      {
+        "file": "test/unit/services/sync-service.test.js",
+        "category": "requires-bitcoin-core",
+        "confidence": "high",
+        "reasons": [
+          "Bitcoin Core RPC calls detected"
+        ],
+        "fileName": "sync-service.test.js"
+      },
+      {
+        "file": "test/unit/services/BitcoinAuth.test.js",
+        "category": "requires-bitcoin-core",
+        "confidence": "high",
+        "reasons": [
+          "Bitcoin Core RPC calls detected"
+        ],
+        "fileName": "BitcoinAuth.test.js"
+      },
+      {
+        "file": "test/unit/sync-service.test.js",
+        "category": "requires-bitcoin-core",
+        "confidence": "high",
+        "reasons": [
+          "Bitcoin Core RPC calls detected"
+        ],
+        "fileName": "sync-service.test.js"
+      }
+    ],
+    "requires-plugins": [
+      {
+        "file": "test/unit/services/event-bus.test.js",
+        "category": "requires-plugins",
+        "confidence": "medium",
+        "reasons": [
+          "Plugin system dependencies detected"
+        ],
+        "fileName": "event-bus.test.js"
+      },
+      {
+        "file": "test/unit/services/plugin-loader.test.js",
+        "category": "requires-plugins",
+        "confidence": "medium",
+        "reasons": [
+          "Plugin system dependencies detected"
+        ],
+        "fileName": "plugin-loader.test.js"
+      },
+      {
+        "file": "test/unit/plugin-system.test.js",
+        "category": "requires-plugins",
+        "confidence": "medium",
+        "reasons": [
+          "Plugin system dependencies detected"
+        ],
+        "fileName": "plugin-system.test.js"
+      },
+      {
+        "file": "test/shared/utils/config.test.js",
+        "category": "requires-plugins",
+        "confidence": "medium",
+        "reasons": [
+          "Bitcoin Core RPC calls detected",
+          "External API calls detected",
+          "Plugin system dependencies detected"
+        ],
+        "fileName": "config.test.js"
+      },
+      {
+        "file": "web/tests/unit/OnboardingWizard.test.jsx",
+        "category": "requires-plugins",
+        "confidence": "medium",
+        "reasons": [
+          "Plugin system dependencies detected"
+        ],
+        "fileName": "OnboardingWizard.test.jsx"
+      }
+    ],
+    "requires-electrum": [
+      {
+        "file": "test/unit/services/EnhancedBitcoinService.test.js",
+        "category": "requires-electrum",
+        "confidence": "high",
+        "reasons": [
+          "Bitcoin Core RPC calls detected",
+          "Mempool.space API calls detected",
+          "Electrum server calls detected"
+        ],
+        "fileName": "EnhancedBitcoinService.test.js"
+      },
+      {
+        "file": "test/unit/api/bitcoin-endpoints.test.js",
+        "category": "requires-electrum",
+        "confidence": "high",
+        "reasons": [
+          "Bitcoin Core RPC calls detected",
+          "Electrum server calls detected"
+        ],
+        "fileName": "bitcoin-endpoints.test.js"
+      }
+    ],
+    "requires-external-apis": [
+      {
+        "file": "test/payment-system.test.js",
+        "category": "requires-external-apis",
+        "confidence": "medium",
+        "reasons": [
+          "External API calls detected"
+        ],
+        "fileName": "payment-system.test.js"
+      },
+      {
+        "file": "test/branded-installer.test.js",
+        "category": "requires-external-apis",
+        "confidence": "medium",
+        "reasons": [
+          "External API calls detected"
+        ],
+        "fileName": "branded-installer.test.js"
+      },
+      {
+        "file": "web/src/utils/connectionMonitor.test.js",
+        "category": "requires-external-apis",
+        "confidence": "medium",
+        "reasons": [
+          "External API calls detected"
+        ],
+        "fileName": "connectionMonitor.test.js"
+      },
+      {
+        "file": "web/src/tests/maintainability/UtilityTests.test.jsx",
+        "category": "requires-external-apis",
+        "confidence": "medium",
+        "reasons": [
+          "External API calls detected"
+        ],
+        "fileName": "UtilityTests.test.jsx"
+      }
+    ]
+  },
+  "jestConfig": {
+    "projects": [
+      {
+        "displayName": "requires-database",
+        "testMatch": [
+          "<rootDir>/test/e2e/electron-integration.test.js",
+          "<rootDir>/test/e2e/platform-integration.test.js",
+          "<rootDir>/test/integration/api/refactored-api.test.js",
+          "<rootDir>/test/integration/api/api.test.js",
+          "<rootDir>/test/integration/api/NotificationServiceV2.test.js",
+          "<rootDir>/test/integration/brk/brk-integration.test.js",
+          "<rootDir>/test/integration/brk/enhanced-brk-integration.test.js",
+          "<rootDir>/test/integration/cli-integration.test.js",
+          "<rootDir>/test/integration/cli/cli-integration.test.js",
+          "<rootDir>/test/integration/api-fixed.test.js",
+          "<rootDir>/test/integration/api-server-auth.test.js",
+          "<rootDir>/test/integration/api-server.test.js",
+          "<rootDir>/test/integration/api.test.js",
+          "<rootDir>/test/integration/brk-binary-integration.test.js",
+          "<rootDir>/test/integration/core-functionality.test.js",
+          "<rootDir>/test/integration/error-handling.test.js",
+          "<rootDir>/test/integration/performance.test.js",
+          "<rootDir>/test/integration/refactored-api.test.js",
+          "<rootDir>/test/integration/setup-functionality.test.js",
+          "<rootDir>/test/integration/setup-regression.test.js",
+          "<rootDir>/test/integration/auth-workflow.test.js",
+          "<rootDir>/test/integration/hardware-wallet-api.test.js",
+          "<rootDir>/test/integration/real-infrastructure.test.js",
+          "<rootDir>/test/integration/integration-comprehensive.test.js",
+          "<rootDir>/test/integration/integration.test.js",
+          "<rootDir>/test/unit/repositories/base-repository.test.js",
+          "<rootDir>/test/unit/repositories/wallet-repository.test.js",
+          "<rootDir>/test/unit/repositories/TransactionRepository.test.js",
+          "<rootDir>/test/unit/repositories/UtxoRepository.test.js",
+          "<rootDir>/test/unit/repositories/user-repository.test.js",
+          "<rootDir>/test/unit/services/alert-service.test.js",
+          "<rootDir>/test/unit/services/price-cache-service.test.js",
+          "<rootDir>/test/unit/services/report-service.test.js",
+          "<rootDir>/test/unit/services/transaction-service.test.js",
+          "<rootDir>/test/unit/services/BitcoinDataService.test.js",
+          "<rootDir>/test/unit/services/SecurityService.test.js",
+          "<rootDir>/test/unit/services/balance-service.test.js",
+          "<rootDir>/test/unit/services/wallet-service.test.js",
+          "<rootDir>/test/unit/services/bitcoin-data-service.test.js",
+          "<rootDir>/test/unit/services/performance-attribution-service.test.js",
+          "<rootDir>/test/unit/alert-service.test.js",
+          "<rootDir>/test/unit/balance-service.test.js",
+          "<rootDir>/test/unit/base-repository.test.js",
+          "<rootDir>/test/unit/improvements.test.js",
+          "<rootDir>/test/unit/price-cache-service.test.js",
+          "<rootDir>/test/unit/report-service.test.js",
+          "<rootDir>/test/unit/transaction-service.test.js",
+          "<rootDir>/test/unit/user-repository.test.js",
+          "<rootDir>/test/unit/utxo-service.test.js",
+          "<rootDir>/test/unit/wallet-repository.test.js",
+          "<rootDir>/test/unit/api/wallet-endpoints.test.js",
+          "<rootDir>/test/unit/auth-system-fixed.test.js",
+          "<rootDir>/test/unit/auth-system-simple.test.js",
+          "<rootDir>/test/unit/auth-system.test.js",
+          "<rootDir>/test/shared/utils/utxo-service.test.js",
+          "<rootDir>/web/tests/e2e/bitcoin-treasury-workflow.spec.js",
+          "<rootDir>/web/tests/e2e/basic-dashboard.spec.js",
+          "<rootDir>/web/tests/e2e/visual-regression.spec.js",
+          "<rootDir>/web/tests/e2e/visual-regression-simple.spec.js",
+          "<rootDir>/web/tests/e2e/visual-regression-working.spec.js",
+          "<rootDir>/web/tests/e2e/accessibility-compliance.spec.js",
+          "<rootDir>/web/tests/e2e/accessibility-simple.spec.js",
+          "<rootDir>/web/tests/e2e/accessibility-working.spec.js",
+          "<rootDir>/web/tests/e2e/component-specific.spec.js",
+          "<rootDir>/web/tests/e2e/subsystem-integration.spec.js",
+          "<rootDir>/web/tests/e2e/component-specific-working.spec.js",
+          "<rootDir>/web/tests/e2e/subsystem-integration-working.spec.js",
+          "<rootDir>/web/tests/e2e/theme-system.spec.js",
+          "<rootDir>/web/tests/e2e/enhanced-setup.spec.js",
+          "<rootDir>/web/tests/e2e/plugins/accounting-integration.spec.js",
+          "<rootDir>/web/tests/e2e/plugins/custom-branding.spec.js",
+          "<rootDir>/web/tests/e2e/plugins/plugin-system.spec.js",
+          "<rootDir>/web/tests/e2e/plugins/hardware-wallet-integration.spec.js",
+          "<rootDir>/web/tests/e2e/auth-workflows.spec.js",
+          "<rootDir>/web/tests/e2e/branded-installer.spec.js",
+          "<rootDir>/web/tests/e2e/bitcoin-core-integration.spec.js",
+          "<rootDir>/web/tests/e2e/minimal-onboarding.spec.js",
+          "<rootDir>/web/tests/e2e/onboarding-wizard.spec.js",
+          "<rootDir>/web/tests/e2e/simple-test.spec.js",
+          "<rootDir>/web/tests/e2e/treasury-portfolio-dashboard.spec.js",
+          "<rootDir>/web/tests/e2e/treasury-security-compliance.spec.js",
+          "<rootDir>/web/tests/e2e/treasury-wallet-management.spec.js",
+          "<rootDir>/web/src/tests/integration/OnboardingPluginIntegration.test.jsx",
+          "<rootDir>/web/src/tests/integration/OnboardingWizard.test.jsx",
+          "<rootDir>/web/src/tests/integration/simple-onboarding.test.jsx",
+          "<rootDir>/web/src/tests/integration/WidgetIntegrationTests.test.jsx",
+          "<rootDir>/web/tests/integration/OnboardingPluginIntegration.test.jsx"
+        ],
+        "setupFilesAfterEnv": [
+          "<rootDir>/config/jest-setup.js"
+        ],
+        "testEnvironment": "node",
+        "testTimeout": 10000,
+        "detectOpenHandles": true,
+        "forceExit": true
+      },
+      {
+        "displayName": "local-only",
+        "testMatch": [
+          "<rootDir>/test/performance/performance.test.js",
+          "<rootDir>/test/performance/cache-performance.test.js",
+          "<rootDir>/test/unit/repositories/report-registry.test.js",
+          "<rootDir>/test/unit/services/advanced-report-service.test.js",
+          "<rootDir>/test/unit/services/mock-job-service.test.js",
+          "<rootDir>/test/unit/services/mock-mempool-service.test.js",
+          "<rootDir>/test/unit/services/risk-analysis-service.test.js",
+          "<rootDir>/test/unit/services/DataExportImportService.test.js",
+          "<rootDir>/test/unit/services/NotificationService.test.js",
+          "<rootDir>/test/unit/advanced-report-service.test.js",
+          "<rootDir>/test/unit/bitcoin-utils.test.js",
+          "<rootDir>/test/unit/error-sanitizer.test.js",
+          "<rootDir>/test/unit/mock-job-service.test.js",
+          "<rootDir>/test/unit/mock-mempool-service.test.js",
+          "<rootDir>/test/unit/performance-attribution-service.test.js",
+          "<rootDir>/test/unit/rate-limiter.test.js",
+          "<rootDir>/test/unit/risk-analysis-service.test.js",
+          "<rootDir>/test/unit/wallet-service.test.js",
+          "<rootDir>/test/unit/xpub-service.test.js",
+          "<rootDir>/test/unit/NotificationServiceV2.test.js",
+          "<rootDir>/test/shared/utils/CacheManager.test.js",
+          "<rootDir>/test/shared/utils/xpub-service.test.js",
+          "<rootDir>/web/src/utils/formatters.test.js",
+          "<rootDir>/web/src/UsersPage.test.jsx",
+          "<rootDir>/web/src/WalletsPage.test.jsx",
+          "<rootDir>/web/src/components/SimpleTest.test.jsx",
+          "<rootDir>/web/src/components/AdvancedComponents.test.jsx",
+          "<rootDir>/web/src/tests/design-system/ComponentTestSuite.test.jsx",
+          "<rootDir>/web/src/tests/user-stories/BitcoinUserStories.test.jsx",
+          "<rootDir>/web/src/tests/long-term/ConfigAndLoggingTests.test.jsx",
+          "<rootDir>/web/src/App.test.jsx"
+        ],
+        "setupFilesAfterEnv": [
+          "<rootDir>/config/jest-setup.js"
+        ],
+        "testEnvironment": "node",
+        "testTimeout": 10000,
+        "detectOpenHandles": true,
+        "forceExit": true
+      },
+      {
+        "displayName": "requires-bitcoin-core",
+        "testMatch": [
+          "<rootDir>/test/unit/services/sync-service.test.js",
+          "<rootDir>/test/unit/services/BitcoinAuth.test.js",
+          "<rootDir>/test/unit/sync-service.test.js"
+        ],
+        "setupFilesAfterEnv": [
+          "<rootDir>/config/jest-setup.js"
+        ],
+        "testEnvironment": "node",
+        "testTimeout": 10000,
+        "detectOpenHandles": true,
+        "forceExit": true
+      },
+      {
+        "displayName": "requires-plugins",
+        "testMatch": [
+          "<rootDir>/test/unit/services/event-bus.test.js",
+          "<rootDir>/test/unit/services/plugin-loader.test.js",
+          "<rootDir>/test/unit/plugin-system.test.js",
+          "<rootDir>/test/shared/utils/config.test.js",
+          "<rootDir>/web/tests/unit/OnboardingWizard.test.jsx"
+        ],
+        "setupFilesAfterEnv": [
+          "<rootDir>/config/jest-setup.js"
+        ],
+        "testEnvironment": "node",
+        "testTimeout": 10000,
+        "detectOpenHandles": true,
+        "forceExit": true
+      },
+      {
+        "displayName": "requires-electrum",
+        "testMatch": [
+          "<rootDir>/test/unit/services/EnhancedBitcoinService.test.js",
+          "<rootDir>/test/unit/api/bitcoin-endpoints.test.js"
+        ],
+        "setupFilesAfterEnv": [
+          "<rootDir>/config/jest-setup.js"
+        ],
+        "testEnvironment": "node",
+        "testTimeout": 10000,
+        "detectOpenHandles": true,
+        "forceExit": true
+      },
+      {
+        "displayName": "requires-external-apis",
+        "testMatch": [
+          "<rootDir>/test/payment-system.test.js",
+          "<rootDir>/test/branded-installer.test.js",
+          "<rootDir>/web/src/utils/connectionMonitor.test.js",
+          "<rootDir>/web/src/tests/maintainability/UtilityTests.test.jsx"
+        ],
+        "setupFilesAfterEnv": [
+          "<rootDir>/config/jest-setup.js"
+        ],
+        "testEnvironment": "node",
+        "testTimeout": 10000,
+        "detectOpenHandles": true,
+        "forceExit": true
+      }
+    ]
+  },
+  "recommendations": [
+    {
+      "priority": "high",
+      "action": "Run local-only tests first",
+      "command": "npm run test:local-only",
+      "description": "31 tests can run without external dependencies"
+    },
+    {
+      "priority": "medium",
+      "action": "Set up test database",
+      "command": "npm run test:requires-database",
+      "description": "87 tests require database setup"
+    }
+  ]
+}
