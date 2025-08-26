@@ -2,7 +2,7 @@
 
 **Enterprise-Grade Bitcoin Treasury Management Platform**
 
-A comprehensive Bitcoin portfolio management system for organizations and institutions, built with security, scalability, and data sovereignty in mind.
+A Bitcoin portfolio management system for organizations and institutions, built with security, scalability, and data sovereignty in mind.
 
 ## 🏗️ Repository Structure
 
@@ -12,6 +12,8 @@ MyBitcoinFuture is organized as a multi-repository ecosystem:
 - **[🌐 Website](https://github.com/MyBitcoinFuture/website)** - Landing page and documentation site
 - **[🔌 Plugins](https://github.com/MyBitcoinFuture/plugins)** - Extensible plugin ecosystem
 - **[🚀 Platform Manifests](https://github.com/MyBitcoinFuture/platform-manifests)** - Deployment configurations for various platforms
+
+**For detailed organization structure and navigation, see our [Organization Structure Guide](https://github.com/MyBitcoinFuture/.github/blob/main/docs/ORGANIZATION_STRUCTURE.md).**
 
 ## 🚀 Quick Start
 
@@ -45,19 +47,21 @@ npm run dev
 
 ## 📚 Documentation
 
-- **[Getting Started](https://mybitcoinfuture.com/getting-started)** - Complete setup guide
-- **[System Overview](https://mybitcoinfuture.com/docs/system-overview)** - Architecture and features
-- **[API Reference](https://mybitcoinfuture.com/docs/api-reference)** - Complete API documentation
-- **[User Guides](https://mybitcoinfuture.com/docs/user-guides)** - Step-by-step tutorials
+- **[Getting Started](https://mybitcoinfuture.com/getting-started)** - Setup guide for new users
+- **[System Overview](https://mybitcoinfuture.com/docs/system-overview)** - Architecture and feature overview
+- **[API Reference](https://mybitcoinfuture.com/docs/api-reference)** - API endpoints and integration
+- **[User Guides](https://mybitcoinfuture.com/docs/user-guides)** - Step-by-step tutorials and workflows
 - **[Quick Start](https://mybitcoinfuture.com/docs/quick-start)** - Essential commands and setup
+
+**For documentation standards and organization, see our [Documentation Standards Guide](https://github.com/MyBitcoinFuture/.github/blob/main/docs/DOCUMENTATION_STANDARDS.md).**
 
 ## 🛠️ Development
 
 ### Contributing
-We welcome contributions! Please see our [Contributing Guidelines](https://github.com/MyBitcoinFuture/.github/blob/main/CONTRIBUTING.md) for details.
+We welcome contributions! Please see our [Contributing Guidelines](https://github.com/MyBitcoinFuture/.github/blob/main/CONTRIBUTING.md) for development standards and processes.
 
 ### Security
-For security issues, please review our [Security Policy](https://github.com/MyBitcoinFuture/.github/blob/main/SECURITY.md).
+For security issues, please review our [Security Policy](https://github.com/MyBitcoinFuture/.github/blob/main/SECURITY.md) and contact security@mybitcoinfuture.com.
 
 ### Code of Conduct
 Please read our [Code of Conduct](https://github.com/MyBitcoinFuture/.github/blob/main/CODE_OF_CONDUCT.md) before contributing.
@@ -68,6 +72,4 @@ MIT License - see [LICENSE](https://github.com/MyBitcoinFuture/.github/blob/main
 
 ---
 
-**Built with ❤️ by the MyBitcoinFuture team**
-
-*Empowering organizations to manage their Bitcoin treasury with confidence and security.*
+*MyBitcoinFuture - Bitcoin treasury management for organizations and institutions.*
