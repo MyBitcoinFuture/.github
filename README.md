@@ -31,19 +31,19 @@ Our platform provides:
 ## 🚀 Getting Started
 
 ### For Organizations
-1. Visit our [website](https://mybitcoinfuture.com) for documentation
-2. Review our [security model](https://github.com/MyBitcoinFuture/dashboard/blob/main/SECURITY.md)
-3. Explore our [plugin ecosystem](https://github.com/MyBitcoinFuture/plugins)
+1. Visit our [website](https://mybitcoinfuture.com) for documentation and setup guides
+2. Review our [security model](https://github.com/MyBitcoinFuture/dashboard/blob/main/SECURITY.md) to understand our xpub-only architecture
+3. Explore our [plugin ecosystem](https://github.com/MyBitcoinFuture/plugins) for extensible functionality
 
 ### For Developers
-1. Check out our [contributing guidelines](https://github.com/MyBitcoinFuture/.github/blob/main/CONTRIBUTING.md)
-2. Review our [code of conduct](https://github.com/MyBitcoinFuture/.github/blob/main/CODE_OF_CONDUCT.md)
-3. Join our [community discussions](https://github.com/MyBitcoinFuture/.github/discussions)
+1. Read our [contributing guidelines](https://github.com/MyBitcoinFuture/.github/blob/main/CONTRIBUTING.md) for development standards
+2. Review our [code of conduct](https://github.com/MyBitcoinFuture/.github/blob/main/CODE_OF_CONDUCT.md) for community standards
+3. Join our [community discussions](https://github.com/MyBitcoinFuture/.github/discussions) for collaboration
 
 ### For Partners
-1. Review our [partnership opportunities](https://github.com/MyBitcoinFuture/.github/discussions/categories/partnerships)
-2. Contact us for collaboration opportunities
-3. Explore our [enterprise features](https://github.com/MyBitcoinFuture/private-plugins)
+1. Review our [partnership opportunities](https://github.com/MyBitcoinFuture/.github/discussions/categories/partnerships) for collaboration
+2. Contact us for enterprise integration opportunities
+3. Explore our [enterprise features](https://github.com/MyBitcoinFuture/private-plugins) for premium functionality
 
 ## 🔒 Security
 
@@ -57,7 +57,7 @@ For security issues, please email [security@mybitcoinfuture.com](mailto:security
 
 ## 🤝 Contributing
 
-We welcome contributions from the community! Please see our [contributing guidelines](https://github.com/MyBitcoinFuture/.github/blob/main/CONTRIBUTING.md) for details.
+We welcome contributions from the community! See our [contributing guidelines](https://github.com/MyBitcoinFuture/.github/blob/main/CONTRIBUTING.md) for details.
 
 ### Community Guidelines
 - Follow our [code of conduct](https://github.com/MyBitcoinFuture/.github/blob/main/CODE_OF_CONDUCT.md)

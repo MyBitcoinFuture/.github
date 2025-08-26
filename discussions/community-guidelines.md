@@ -33,7 +33,7 @@ Welcome to the MyBitcoinFuture community! These guidelines help us maintain a po
 - Plugin ecosystem ideas
 
 ### 🤝 Community Support
-- Help for new contributors
+- Help for contributors
 - Mentorship opportunities
 - Community building activities
 
@@ -45,7 +45,7 @@ Welcome to the MyBitcoinFuture community! These guidelines help us maintain a po
 ## ✅ What to Do
 
 - **Be respectful** and constructive in all interactions
-- **Search existing discussions** before creating new ones
+- **Search existing discussions** before creating ones
 - **Use clear, descriptive titles** for your posts
 - **Provide context** when asking questions
 - **Share your knowledge** and help others
@@ -74,10 +74,10 @@ Welcome to the MyBitcoinFuture community! These guidelines help us maintain a po
 ### For Technical Issues
 1. Search existing discussions and issues
 2. Check our documentation
-3. Create a new discussion with clear details
+3. Create a discussion with clear details
 4. Tag relevant team members if needed
 
-### For New Contributors
+### For Contributors
 1. Read our contributing guidelines
 2. Join our welcome discussions
 3. Ask questions in the community support category
@@ -99,7 +99,7 @@ Use these tags to help organize discussions:
 - `#help` - Community support
 - `#enterprise` - Enterprise discussions
 - `#security` - Security-related topics
-- `#newcomer` - New contributor questions
+- `#newcomer` - Contributor questions
 
 ## 📞 Contact Information
 

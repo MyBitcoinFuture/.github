@@ -1,6 +1,6 @@
 # Contributing to MyBitcoinFuture
 
-Thank you for your interest in contributing to MyBitcoinFuture! This document provides guidelines and information for contributors.
+This document provides guidelines for contributing to MyBitcoinFuture.
 
 ## 🎯 Overview
 
@@ -10,10 +10,10 @@ MyBitcoinFuture is a comprehensive Bitcoin treasury management ecosystem. We wel
 
 Our organization consists of multiple repositories:
 
-- **[dashboard](https://github.com/MyBitcoinFuture/dashboard)** - Main application (hybrid monorepo)
-- **[plugins](https://github.com/MyBitcoinFuture/plugins)** - Plugin ecosystem
 - **[dashboard](https://github.com/MyBitcoinFuture/dashboard)** - Main application
+- **[plugins](https://github.com/MyBitcoinFuture/plugins)** - Plugin ecosystem
 - **[website](https://github.com/MyBitcoinFuture/website)** - Organization website
+- **[private-plugins](https://github.com/MyBitcoinFuture/private-plugins)** - Private plugin ecosystem
 - **[platform-manifests](https://github.com/MyBitcoinFuture/platform-manifests)** - Platform configurations
 
 ## 🚀 Getting Started
@@ -57,8 +57,8 @@ git checkout -b feature/your-feature-name
 
 ### 2. Make Your Changes
 
-- Follow the coding standards (see below)
-- Write tests for new functionality
+- Follow the coding standards below
+- Write tests for functionality
 - Update documentation as needed
 - Ensure all tests pass
 
@@ -66,7 +66,7 @@ git checkout -b feature/your-feature-name
 
 ```bash
 git add .
-git commit -m "feat: add new feature description"
+git commit -m "feat: add feature description"
 ```
 
 ### 4. Push and Create Pull Request
@@ -204,7 +204,7 @@ describe('WalletService', () => {
 
 ```javascript
 /**
- * Creates a new Bitcoin wallet
+ * Creates a Bitcoin wallet
  * @param {string} xpub - Extended public key
  * @param {string} label - Wallet label
  * @param {Object} options - Additional options
@@ -221,10 +221,10 @@ async function createWallet(xpub, label, options = {}) {
 
 ### README Updates
 
-- Update README files when adding new features
-- Include setup instructions for new dependencies
+- Update README files when adding features
+- Include setup instructions for dependencies
 - Document any breaking changes
-- Add examples for new functionality
+- Add examples for functionality
 
 ## 🔒 Security Guidelines
 

@@ -5,15 +5,15 @@ Welcome to our community! We're excited to have you here and help you get starte
 ## 🚀 Getting Started
 
 ### For New Contributors
-1. **Read our documentation**: Start with our [main documentation](https://github.com/MyBitcoinFuture/website)
-2. **Join discussions**: Introduce yourself in this thread or start a new discussion
+1. **Read our documentation**: Start with our [main documentation](https://github.com/MyBitcoinFuture/website) for comprehensive guides
+2. **Join discussions**: Introduce yourself in this thread or start a discussion for collaboration
 3. **Find your first issue**: Look for issues labeled with `good first issue`
 4. **Ask questions**: Don't hesitate to ask for help in the community support category
 
 ### For Developers
 1. **Set up your environment**: Check our [development setup guide](https://github.com/MyBitcoinFuture/dashboard/blob/main/DEVELOPMENT.md)
 2. **Explore the codebase**: Start with the [dashboard repository](https://github.com/MyBitcoinFuture/dashboard)
-3. **Join plugin development**: Check out our [plugin ecosystem](https://github.com/MyBitcoinFuture/plugins)
+3. **Join plugin development**: Explore our [plugin ecosystem](https://github.com/MyBitcoinFuture/plugins) for extensible functionality
 4. **Review our architecture**: Understand our [xpub-only security model](https://github.com/MyBitcoinFuture/dashboard/blob/main/SECURITY.md)
 
 ### For Organizations
@@ -38,7 +38,7 @@ Welcome to our community! We're excited to have you here and help you get starte
 
 ### Provide Feedback
 - Report bugs and issues
-- Suggest new features
+- Suggest features
 - Share your use cases
 - Help improve our documentation
 

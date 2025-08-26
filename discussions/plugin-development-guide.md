@@ -4,13 +4,13 @@ Welcome to the MyBitcoinFuture plugin ecosystem! This guide will help you unders
 
 ## 🎯 What Are Plugins?
 
-Plugins extend the functionality of the MyBitcoinFuture platform by adding new features, integrations, and capabilities. They can:
+Plugins extend the functionality of the MyBitcoinFuture platform by adding features, integrations, and capabilities. They can:
 
-- **Add new functionality** to the dashboard
+- **Add functionality** to the dashboard
 - **Integrate with external services** (APIs, databases, etc.)
 - **Provide custom analytics** and reporting
 - **Enhance security features** and monitoring
-- **Add new UI components** and interfaces
+- **Add UI components** and interfaces
 
 ## 🏗️ Plugin Architecture
 
@@ -63,7 +63,7 @@ plugin-name/
    npm install
    ```
 
-3. **Create a new plugin**:
+3. **Create a plugin**:
    ```bash
    npm run create-plugin my-awesome-plugin
    ```
@@ -142,7 +142,7 @@ class MyAwesomePlugin {
 
   async onBitcoinTransaction(transaction) {
     // Handle Bitcoin transaction events
-    console.log('New transaction:', transaction);
+    console.log('Transaction:', transaction);
   }
 
   async onDashboardLoad() {
@@ -251,7 +251,7 @@ describe('Plugin Integration', () => {
 
 ### Open Source Plugins
 1. **Fork the plugins repository**
-2. **Create your plugin** in a new directory
+2. **Create your plugin** in a directory
 3. **Add tests** and documentation
 4. **Submit a pull request**
 5. **Review and merge**
@@ -304,11 +304,11 @@ describe('Plugin Integration', () => {
 
 ## 🏷️ Useful Labels
 
-- `plugin:new` - New plugin submissions
+- `plugin:new` - Plugin submissions
 - `plugin:enhancement` - Plugin improvements
 - `plugin:bug` - Plugin bug reports
 - `plugin:documentation` - Plugin documentation
-- `good first plugin` - Good for new plugin developers
+- `good first plugin` - Good for plugin developers
 
 ## 🎉 Next Steps
 
