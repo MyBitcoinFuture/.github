@@ -12,7 +12,7 @@ Our platform provides:
 - 🏢 **Enterprise-grade security** - Built for organizational use
 - 🔌 **Extensible plugin ecosystem** - Modular and customizable
 - 🌐 **Cross-platform support** - Web, desktop, and mobile
-- 📊 **Comprehensive analytics** - Treasury management insights
+- 📊 **Analytics** - Treasury management insights
 
 ## 📦 Repository Structure
 

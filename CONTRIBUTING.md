@@ -1,10 +1,10 @@
 # Contributing to MyBitcoinFuture
 
-This document provides guidelines for contributing to MyBitcoinFuture.
+Guidelines for contributing to MyBitcoinFuture.
 
 ## 🎯 Overview
 
-MyBitcoinFuture is a comprehensive Bitcoin treasury management ecosystem. We welcome contributions from the community to help improve our platform.
+MyBitcoinFuture is a Bitcoin treasury management ecosystem. We welcome contributions from the community to help improve our platform.
 
 ## 🏗️ Repository Structure
 
@@ -137,7 +137,7 @@ src/
 
 - **Unit tests** - Test individual functions and classes
 - **Integration tests** - Test component interactions
-- **E2E tests** - Test complete user workflows
+- **E2E tests** - Test user workflows
 - **Performance tests** - Test system performance
 - **Security tests** - Test security measures
 
@@ -251,7 +251,7 @@ async function createWallet(xpub, label, options = {}) {
 1. **Ensure all tests pass**
 2. **Update documentation** as needed
 3. **Follow coding standards**
-4. **Test your changes** thoroughly
+4. **Test your changes**
 5. **Check for security issues**
 
 ### Pull Request Template
@@ -337,7 +337,7 @@ Before submitting your contribution, ensure you have:
 - [ ] **Followed coding standards**
 - [ ] **Written tests** for new functionality
 - [ ] **Updated documentation**
-- [ ] **Run all tests** successfully
+- [ ] **Run all tests**
 - [ ] **Checked for security issues**
 - [ ] **Used appropriate templates**
 - [ ] **Provided clear descriptions**

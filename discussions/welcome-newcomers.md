@@ -1,11 +1,11 @@
-# 👋 Welcome to MyBitcoinFuture!
+# 👋 MyBitcoinFuture Community
 
-Welcome to our community! We're excited to have you here and help you get started with contributing to the future of Bitcoin treasury management.
+MyBitcoinFuture is a Bitcoin treasury management platform. This guide helps you get started with contributing to the project.
 
 ## 🚀 Getting Started
 
 ### For New Contributors
-1. **Read our documentation**: Start with our [main documentation](https://github.com/MyBitcoinFuture/website) for comprehensive guides
+1. **Read our documentation**: Start with our [main documentation](https://github.com/MyBitcoinFuture/website) for guides
 2. **Join discussions**: Introduce yourself in this thread or start a discussion for collaboration
 3. **Find your first issue**: Look for issues labeled with `good first issue`
 4. **Ask questions**: Don't hesitate to ask for help in the community support category
@@ -92,7 +92,7 @@ Feel free to introduce yourself in this thread! Tell us:
 
 **Welcome aboard! We're building something amazing together.** 🚀
 
-*If you have any questions or need help getting started, don't hesitate to ask. Our community is here to help!*
+*Our community is here to help with questions and getting started.*
 
 
 

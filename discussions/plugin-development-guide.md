@@ -1,6 +1,6 @@
 # 🔌 Plugin Development Guide
 
-Welcome to the MyBitcoinFuture plugin ecosystem! This guide will help you understand how to develop plugins for our platform.
+Plugin development guide for MyBitcoinFuture. Learn how to develop plugins for our platform.
 
 ## 🎯 What Are Plugins?
 
