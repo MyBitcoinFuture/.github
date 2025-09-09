@@ -429,8 +429,8 @@ git status
 **Required Validation Steps:**
 ```bash
 # 1. Search for existing functionality
-codebase_search "functionality name"
-grep_search "functionality pattern"
+grep -r "functionality name" --include="*.js" --include="*.jsx" .
+find . -name "*.js" -exec grep -l "functionality pattern" {} \;
 
 # 2. Check if files/directories exist
 ls -la path/to/expected/file
@@ -484,8 +484,8 @@ node scripts/test-github-access.js
 **Validation Commands:**
 ```bash
 # Search for existing functionality
-codebase_search "feature name"
-grep_search "function_name"
+grep -r "feature name" --include="*.js" --include="*.jsx" .
+grep -r "function_name" --include="*.js" --include="*.jsx" .
 
 # Check for existing patterns
 find . -name "*.js" -exec grep -l "pattern" {} \;
