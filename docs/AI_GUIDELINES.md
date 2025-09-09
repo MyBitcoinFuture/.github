@@ -616,6 +616,23 @@ const GitHubAPI = {
 - [ ] **Error handling** - proper error responses
 - [ ] **GitHub token security** - never commit tokens to repositories
 
+### 🚨 CRITICAL MANDATORY RULES - NO EXCEPTIONS
+**⚠️ CRITICAL: THESE ARE NOT SUGGESTIONS - THEY ARE ABSOLUTE REQUIREMENTS**
+
+**BEFORE YOU TOUCH ANY CODE:**
+1. **UNDERSTAND WHAT YOU'RE CHANGING** - Don't make assumptions
+2. **VALIDATE YOUR ASSUMPTIONS** - Check if they're actually correct
+3. **TEST YOUR LOGIC** - Think through the consequences
+4. **USE YOUR BRAIN** - Think before making changes
+
+**BEFORE MODIFYING ANY SYSTEM:**
+- **UNDERSTAND** the current architecture and why it exists
+- **VALIDATE** that your changes won't break existing functionality  
+- **TEST** your logic by thinking through all possible outcomes
+- **ASK** if you're not sure what something does
+
+**NEVER MAKE SWEEPING CHANGES WITHOUT UNDERSTANDING THE IMPACT**
+
 ### Common AI Anti-Patterns to Avoid
 - **Repository confusion** - Always specify which repo you're working in
 - **Import path errors** - Verify repository structure before imports  
@@ -634,6 +651,7 @@ const GitHubAPI = {
 - **Data flow disruption** - Understand existing data flows before modifying them
 - **GitHub API access ignorance** - Always verify token availability before API operations
 - **Token security violations** - Never commit tokens or secrets to repositories
+- **MAKING CHANGES WITHOUT UNDERSTANDING** - Don't modify systems without understanding what you're doing
 
 ### Essential Testing Patterns
 ```javascript
