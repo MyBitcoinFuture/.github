@@ -15,7 +15,7 @@ MyBitcoinFuture Organization (GitHub Organization)
 ├── 🔌 plugins/                # Plugin ecosystem repository
 ├── 🔐 private-plugins/        # Private plugin ecosystem repository
 ├── 🚀 platform-manifests/     # Platform deployment repository
-└── 📋 .github/                # Organization-level files (NOT a repo)
+└── 📋 .github/                # Organization-level files repository
 ```
 
 ### Key Rules for Multi-Repo Development
@@ -23,7 +23,7 @@ MyBitcoinFuture Organization (GitHub Organization)
 2. **NEVER initialize git in the organization root** - each repo manages its own git
 3. **Always specify which repository** you're working in
 4. **Cross-repository dependencies** must be handled via package.json or imports
-5. **The `.github` folder** contains organization-level documentation, not code
+5. **The `.github` repository** contains organization-level documentation and workflows
 
 ## 🔑 CRITICAL: GitHub API Access Requirements
 
