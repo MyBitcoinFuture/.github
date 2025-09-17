@@ -8,7 +8,7 @@ on:
 jobs:
   test-default-checkout:
     name: Test Default Checkout
-    runs-on: [self-hosted, Linux, X64]
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
     - name: Default Checkout
@@ -35,7 +35,7 @@ jobs:
 
   test-empty-path-checkout:
     name: Test Empty Path Checkout
-    runs-on: [self-hosted, Linux, X64]
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
     - name: Empty Path Checkout
@@ -64,7 +64,7 @@ jobs:
 
   test-dot-path-checkout:
     name: Test Dot Path Checkout
-    runs-on: [self-hosted, Linux, X64]
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
     - name: Dot Path Checkout
@@ -93,7 +93,7 @@ jobs:
 
   test-custom-path-checkout:
     name: Test Custom Path Checkout
-    runs-on: [self-hosted, Linux, X64]
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
     - name: Custom Path Checkout

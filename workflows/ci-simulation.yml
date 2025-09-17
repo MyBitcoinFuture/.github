@@ -8,7 +8,7 @@ on:
 jobs:
   simulate-ci-build:
     name: Simulate CI Build Process
-    runs-on: [self-hosted, Linux, X64]
+    runs-on: ubuntu-latest
     timeout-minutes: 15
 
     steps:
