@@ -94,6 +94,150 @@ node .github/scripts/github/github-org-manager.js [operation] [options]
 node .github/scripts/github/github-repo-manager.js [operation] [options]
 ```
 
+### 🚨 CRITICAL: GitHub Actions Log Retrieval
+**⚠️ CRITICAL FOR AI AGENTS: How to get workflow logs from GitHub API**
+
+**GitHub API returns logs as PLAIN TEXT, not JSON:**
+```bash
+# Get workflow run logs (returns plain text with timestamps)
+curl -L -H "Authorization: token $GITHUB_TOKEN" \
+  -H "Accept: application/vnd.github.v3+json" \
+  "https://api.github.com/repos/OWNER/REPO/actions/runs/RUN_ID/logs" -o logs.txt
+
+# Get specific job logs (returns plain text with timestamps)
+curl -L -H "Authorization: token $GITHUB_TOKEN" \
+  -H "Accept: application/vnd.github.v3+json" \
+  "https://api.github.com/repos/OWNER/REPO/actions/jobs/JOB_ID/logs" -o job_logs.txt
+
+# Read the logs (they're plain text, not JSON)
+cat logs.txt | grep -i "error\|failed\|cannot find"
+tail -100 logs.txt
+```
+
+**MANDATORY LOG RETRIEVAL WORKFLOW:**
+1. **Get the workflow run ID**: `curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/OWNER/REPO/actions/runs" | jq -r '.workflow_runs[0].id'`
+2. **Get the job ID**: `curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/OWNER/REPO/actions/runs/RUN_ID/jobs" | jq -r '.jobs[] | select(.name | contains("Build")) | .id'`
+3. **Download the logs**: `curl -L -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/OWNER/REPO/actions/jobs/JOB_ID/logs" -o logs.txt`
+4. **Read the logs**: `cat logs.txt | grep -i "error\|failed"`
+
+**NEVER ASSUME LOGS ARE JSON - THEY ARE PLAIN TEXT WITH TIMESTAMPS**
+
+### 🚨 CRITICAL: npm Workspace Context Issues
+**⚠️ CRITICAL FOR AI AGENTS: Workspace context affects module resolution**
+
+**The Problem:**
+- `npm run build --workspace=@mybitcoinfuture/web` runs from web workspace context
+- `npm run build:frontend --workspace=@mybitcoinfuture/electron` runs from electron workspace context
+- Same command, different workspace context = different module resolution
+
+**The Solution:**
+- Always use the SAME workspace context for consistent behavior
+- If shared build works with web workspace, use web workspace for individual builds
+- If individual builds fail with electron workspace, switch to web workspace
+
+**MANDATORY WORKSPACE ANALYSIS:**
+1. **Check what workspace the working build uses**
+2. **Check what workspace the failing build uses**
+3. **Make them use the SAME workspace context**
+4. **Never assume workspace context doesn't matter**
+
+### 🚨 CRITICAL: GitHub Workflow Log Retrieval
+**⚠️ MANDATORY FOR CI/CD DEBUGGING: Always get actual logs instead of guessing**
+
+**NEVER make assumptions about CI failures. ALWAYS retrieve actual logs using GitHub API:**
+
+```bash
+# 1. Get workflow run details
+curl -H "Authorization: token YOUR_GITHUB_TOKEN" \
+     -H "Accept: application/vnd.github.v3+json" \
+     "https://api.github.com/repos/OWNER/REPO/actions/runs/RUN_ID"
+
+# 2. Get job details for specific job
+curl -H "Authorization: token YOUR_GITHUB_TOKEN" \
+     -H "Accept: application/vnd.github.v3+json" \
+     "https://api.github.com/repos/OWNER/REPO/actions/runs/RUN_ID/jobs" | \
+     jq -r '.jobs[] | select(.name == "JOB_NAME") | .id'
+
+# 3. Download workflow logs (returns redirect to zip file)
+curl -L -H "Authorization: token YOUR_GITHUB_TOKEN" \
+     -H "Accept: application/vnd.github.v3+json" \
+     "https://api.github.com/repos/OWNER/REPO/actions/runs/RUN_ID/logs" \
+     -o workflow_logs.zip
+
+# 4. Extract and analyze logs
+unzip -o workflow_logs.zip
+cat "JOB_NAME/STEP_NAME.txt"
+```
+
+**Example for MyBitcoinFuture dashboard:**
+```bash
+# Get failing workflow run ID from GitHub Actions page
+RUN_ID="WORKFLOW_RUN_ID"
+
+# Download logs
+curl -L -H "Authorization: token YOUR_GITHUB_TOKEN" \
+     -H "Accept: application/vnd.github.v3+json" \
+     "https://api.github.com/repos/MyBitcoinFuture/dashboard/actions/runs/$RUN_ID/logs" \
+     -o workflow_logs.zip
+
+# Extract and read specific job logs
+unzip -o workflow_logs.zip
+cat "JobName/StepName.txt"
+```
+
+**🚨 CRITICAL RULES:**
+1. **NEVER guess what's happening in CI** - always get actual logs
+2. **NEVER make 100+ commits** for a simple issue - get logs first
+3. **ALWAYS use GitHub API** to retrieve workflow logs before debugging
+4. **READ THE ACTUAL ERROR MESSAGES** from the logs, don't assume
+5. **VERIFY YOUR FIXES WORK** by checking subsequent workflow runs
+
+**Common Anti-Patterns to AVOID:**
+- ❌ Making assumptions about CI failures
+- ❌ Implementing "fixes" without seeing actual error logs  
+- ❌ Making dozens of commits for simple issues
+- ❌ Asking user to paste logs when you have API access
+- ❌ Guessing at root causes instead of investigating
+
+**Required Process:**
+1. **Get workflow run ID** from GitHub Actions page
+2. **Download logs** using GitHub API
+3. **Read actual error messages** from log files
+4. **Identify real root cause** from logs
+5. **Implement targeted fix** based on actual evidence
+6. **Verify fix works** by monitoring next workflow run
+
+### 🚨 CRITICAL: Commit Message Standards
+**⚠️ MANDATORY: Keep commit messages concise and focused**
+
+**GOOD commit messages:**
+```
+fix: Resolve vite module resolution in CI environment
+feat: Add comprehensive E2E test suite
+docs: Update AI development guidelines
+refactor: Clean up redundant documentation files
+```
+
+**BAD commit messages (too verbose):**
+```
+fix: Remove --no-save flag from vite installation in web workspace
+
+- The --no-save flag was preventing vite from being installed in web workspace
+- Logs show vite is installed in root but not in web workspace
+- Removing --no-save allows vite to be properly installed in web workspace
+- This should resolve the 'Cannot find package vite' error
+
+Root cause: --no-save flag prevented vite installation in web workspace node_modules
+```
+
+**Commit Message Rules:**
+1. **Keep under 50 characters** for the subject line
+2. **Use imperative mood** (fix, add, remove, not fixed, added, removed)
+3. **Be specific** about what changed
+4. **No verbose explanations** in commit body unless absolutely necessary
+5. **Focus on the change**, not the debugging process
+6. **Use conventional commits** format: `type: description`
+
 ## 🏗️ GitHub Teams Optimization Framework
 
 ### Organization Management Capabilities
@@ -652,6 +796,7 @@ const GitHubAPI = {
 - **GitHub API access ignorance** - Always verify token availability before API operations
 - **Token security violations** - Never commit tokens or secrets to repositories
 - **MAKING CHANGES WITHOUT UNDERSTANDING** - Don't modify systems without understanding what you're doing
+- **MAKING 100+ COMMITS FOR SIMPLE ISSUES** - Always get actual logs first, don't guess
 
 ### Essential Testing Patterns
 ```javascript
@@ -727,4 +872,4 @@ node scripts/test-github-access.js
 
 **Built with ❤️ by the MyBitcoinFuture team**
 
-*Empowering organizations to manage their Bitcoin treasury with confidence and security across all repositories with comprehensive GitHub Teams optimization.* 
+*Empowering organizations to manage their Bitcoin treasury with confidence and security across all repositories with comprehensive GitHub Teams optimization.*
