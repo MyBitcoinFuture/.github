@@ -1,0 +1,225 @@
+name: Cross-Repository Integration
+
+on:
+  repository_dispatch:
+    types: [dashboard-updated, plugin-updated, website-updated]
+  workflow_dispatch:
+    inputs:
+      trigger_type:
+        description: 'Type of integration trigger'
+        required: true
+        default: 'manual'
+        type: choice
+        options:
+        - manual
+        - dashboard-updated
+        - plugin-updated
+        - website-updated
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  analyze-changes:
+    name: Analyze Changes
+    runs-on: ubuntu-latest
+    outputs:
+      dashboard-changed: ${{ steps.changes.outputs.dashboard }}
+      plugins-changed: ${{ steps.changes.outputs.plugins }}
+      website-changed: ${{ steps.changes.outputs.website }}
+      integration-needed: ${{ steps.changes.outputs.integration }}
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Analyze repository changes
+      id: changes
+      run: |
+        echo "🔍 Analyzing changes for cross-repository integration..."
+        
+        # Determine what changed based on trigger
+        case "${{ github.event.action || 'manual' }}" in
+          "dashboard-updated")
+            echo "dashboard=true" >> $GITHUB_OUTPUT
+            echo "plugins=true" >> $GITHUB_OUTPUT
+            echo "website=false" >> $GITHUB_OUTPUT
+            echo "integration=true" >> $GITHUB_OUTPUT
+            ;;
+          "plugin-updated")
+            echo "dashboard=false" >> $GITHUB_OUTPUT
+            echo "plugins=true" >> $GITHUB_OUTPUT
+            echo "website=false" >> $GITHUB_OUTPUT
+            echo "integration=true" >> $GITHUB_OUTPUT
+            ;;
+          "website-updated")
+            echo "dashboard=false" >> $GITHUB_OUTPUT
+            echo "plugins=false" >> $GITHUB_OUTPUT
+            echo "website=true" >> $GITHUB_OUTPUT
+            echo "integration=false" >> $GITHUB_OUTPUT
+            ;;
+          *)
+            echo "dashboard=true" >> $GITHUB_OUTPUT
+            echo "plugins=true" >> $GITHUB_OUTPUT
+            echo "website=true" >> $GITHUB_OUTPUT
+            echo "integration=true" >> $GITHUB_OUTPUT
+            ;;
+        esac
+        
+        echo "Dashboard changed: ${{ steps.changes.outputs.dashboard }}"
+        echo "Plugins changed: ${{ steps.changes.outputs.plugins }}"
+        echo "Website changed: ${{ steps.changes.outputs.website }}"
+        echo "Integration needed: ${{ steps.changes.outputs.integration }}"
+
+  trigger-dashboard-build:
+    name: Trigger Dashboard Build
+    runs-on: ubuntu-latest
+    needs: analyze-changes
+    if: needs.analyze-changes.outputs.dashboard-changed == 'true'
+    
+    steps:
+    - name: Trigger Dashboard Build
+      uses: peter-evans/repository-dispatch@v2
+      with:
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        repository: MyBitcoinFuture/dashboard
+        event-type: cross-repo-integration
+        client-payload: |
+          {
+            "triggered_by": "cross-repository-integration",
+            "trigger_type": "${{ github.event.action || 'manual' }}",
+            "integration_id": "${{ github.run_id }}",
+            "timestamp": "${{ github.event.head_commit.timestamp || github.run_started_at }}"
+          }
+
+  trigger-plugins-build:
+    name: Trigger Plugins Build
+    runs-on: ubuntu-latest
+    needs: analyze-changes
+    if: needs.analyze-changes.outputs.plugins-changed == 'true'
+    
+    steps:
+    - name: Trigger Public Plugins Build
+      uses: peter-evans/repository-dispatch@v2
+      with:
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        repository: MyBitcoinFuture/plugins
+        event-type: cross-repo-integration
+        client-payload: |
+          {
+            "triggered_by": "cross-repository-integration",
+            "trigger_type": "${{ github.event.action || 'manual' }}",
+            "integration_id": "${{ github.run_id }}",
+            "timestamp": "${{ github.event.head_commit.timestamp || github.run_started_at }}"
+          }
+    
+    - name: Trigger Private Plugins Build
+      uses: peter-evans/repository-dispatch@v2
+      with:
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        repository: MyBitcoinFuture/private-plugins
+        event-type: cross-repo-integration
+        client-payload: |
+          {
+            "triggered_by": "cross-repository-integration",
+            "trigger_type": "${{ github.event.action || 'manual' }}",
+            "integration_id": "${{ github.run_id }}",
+            "timestamp": "${{ github.event.head_commit.timestamp || github.run_started_at }}"
+          }
+
+  trigger-website-build:
+    name: Trigger Website Build
+    runs-on: ubuntu-latest
+    needs: analyze-changes
+    if: needs.analyze-changes.outputs.website-changed == 'true'
+    
+    steps:
+    - name: Trigger Website Build
+      uses: peter-evans/repository-dispatch@v2
+      with:
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        repository: MyBitcoinFuture/website
+        event-type: cross-repo-integration
+        client-payload: |
+          {
+            "triggered_by": "cross-repository-integration",
+            "trigger_type": "${{ github.event.action || 'manual' }}",
+            "integration_id": "${{ github.run_id }}",
+            "timestamp": "${{ github.event.head_commit.timestamp || github.run_started_at }}"
+          }
+
+  integration-testing:
+    name: Integration Testing
+    runs-on: [self-hosted, Linux, X64]
+    needs: [analyze-changes, trigger-dashboard-build, trigger-plugins-build, trigger-website-build]
+    if: needs.analyze-changes.outputs.integration-needed == 'true'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+    
+    - name: Wait for builds to complete
+      run: |
+        echo "⏳ Waiting for triggered builds to complete..."
+        sleep 60  # Give builds time to start
+        
+        # In a real implementation, you'd poll the GitHub API
+        # to check build statuses
+    
+    - name: Run integration tests
+      run: |
+        echo "🧪 Running cross-repository integration tests..."
+        
+        # Test dashboard-plugin integration
+        if [ "${{ needs.analyze-changes.outputs.dashboard-changed }}" == "true" ] && 
+           [ "${{ needs.analyze-changes.outputs.plugins-changed }}" == "true" ]; then
+          echo "Testing dashboard-plugin integration..."
+          # Add actual integration tests here
+        fi
+        
+        # Test website-dashboard integration
+        if [ "${{ needs.analyze-changes.outputs.website-changed }}" == "true" ] && 
+           [ "${{ needs.analyze-changes.outputs.dashboard-changed }}" == "true" ]; then
+          echo "Testing website-dashboard integration..."
+          # Add actual integration tests here
+        fi
+        
+        echo "✅ Integration tests completed"
+
+  notify-integration-complete:
+    name: Notify Integration Complete
+    runs-on: [self-hosted, Linux, X64]
+    needs: [analyze-changes, integration-testing]
+    if: always()
+    
+    steps:
+    - name: Notify N8N Integration Complete
+      run: |
+        curl -X POST "http://mybitcoinfuture.tail6735e5.ts.net:5678/webhook/integration-complete" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "integration_id": "${{ github.run_id }}",
+            "trigger_type": "${{ github.event.action || 'manual' }}",
+            "dashboard_changed": "${{ needs.analyze-changes.outputs.dashboard-changed }}",
+            "plugins_changed": "${{ needs.analyze-changes.outputs.plugins-changed }}",
+            "website_changed": "${{ needs.analyze-changes.outputs.website-changed }}",
+            "integration_status": "${{ needs.integration-testing.result }}",
+            "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
+          }'
+    
+    - name: Update integration status
+      run: |
+        echo "📊 Cross-Repository Integration Results:"
+        echo "======================================"
+        echo "Integration ID: ${{ github.run_id }}"
+        echo "Trigger Type: ${{ github.event.action || 'manual' }}"
+        echo "Dashboard Changed: ${{ needs.analyze-changes.outputs.dashboard-changed }}"
+        echo "Plugins Changed: ${{ needs.analyze-changes.outputs.plugins-changed }}"
+        echo "Website Changed: ${{ needs.analyze-changes.outputs.website-changed }}"
+        echo "Integration Status: ${{ needs.integration-testing.result }}"

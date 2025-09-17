@@ -1,0 +1,133 @@
+name: Path Configuration Debug
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-default-checkout:
+    name: Test Default Checkout
+    runs-on: [self-hosted, Linux, X64]
+    timeout-minutes: 5
+    steps:
+    - name: Default Checkout
+      uses: actions/checkout@v4
+    - name: Analyze Path
+      run: |
+        echo "=== DEFAULT CHECKOUT ANALYSIS ==="
+        echo "Current directory: $(pwd)"
+        echo "Directory contents:"
+        ls -la
+        echo ""
+        echo "Environment variables:"
+        echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+        echo "RUNNER_WORKSPACE: $RUNNER_WORKSPACE"
+        echo ""
+        echo "Checking for nested directories:"
+        if [ -d "dashboard" ]; then
+          echo "NESTED DIRECTORY FOUND: dashboard/"
+          echo "Contents:"
+          ls -la dashboard/
+        else
+          echo "No nested directory found"
+        fi
+
+  test-empty-path-checkout:
+    name: Test Empty Path Checkout
+    runs-on: [self-hosted, Linux, X64]
+    timeout-minutes: 5
+    steps:
+    - name: Empty Path Checkout
+      uses: actions/checkout@v4
+      with:
+        path: ''
+    - name: Analyze Path
+      run: |
+        echo "=== EMPTY PATH CHECKOUT ANALYSIS ==="
+        echo "Current directory: $(pwd)"
+        echo "Directory contents:"
+        ls -la
+        echo ""
+        echo "Environment variables:"
+        echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+        echo "RUNNER_WORKSPACE: $RUNNER_WORKSPACE"
+        echo ""
+        echo "Checking for nested directories:"
+        if [ -d "dashboard" ]; then
+          echo "NESTED DIRECTORY FOUND: dashboard/"
+          echo "Contents:"
+          ls -la dashboard/
+        else
+          echo "No nested directory found"
+        fi
+
+  test-dot-path-checkout:
+    name: Test Dot Path Checkout
+    runs-on: [self-hosted, Linux, X64]
+    timeout-minutes: 5
+    steps:
+    - name: Dot Path Checkout
+      uses: actions/checkout@v4
+      with:
+        path: .
+    - name: Analyze Path
+      run: |
+        echo "=== DOT PATH CHECKOUT ANALYSIS ==="
+        echo "Current directory: $(pwd)"
+        echo "Directory contents:"
+        ls -la
+        echo ""
+        echo "Environment variables:"
+        echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+        echo "RUNNER_WORKSPACE: $RUNNER_WORKSPACE"
+        echo ""
+        echo "Checking for nested directories:"
+        if [ -d "dashboard" ]; then
+          echo "NESTED DIRECTORY FOUND: dashboard/"
+          echo "Contents:"
+          ls -la dashboard/
+        else
+          echo "No nested directory found"
+        fi
+
+  test-custom-path-checkout:
+    name: Test Custom Path Checkout
+    runs-on: [self-hosted, Linux, X64]
+    timeout-minutes: 5
+    steps:
+    - name: Custom Path Checkout
+      uses: actions/checkout@v4
+      with:
+        path: 'source'
+    - name: Analyze Path
+      run: |
+        echo "=== CUSTOM PATH CHECKOUT ANALYSIS ==="
+        echo "Current directory: $(pwd)"
+        echo "Directory contents:"
+        ls -la
+        echo ""
+        echo "Environment variables:"
+        echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+        echo "RUNNER_WORKSPACE: $RUNNER_WORKSPACE"
+        echo ""
+        echo "Checking for source directory:"
+        if [ -d "source" ]; then
+          echo "source/ directory found"
+          echo "Contents:"
+          ls -la source/
+        else
+          echo "source/ directory not found"
+        fi
+        echo ""
+        echo "Checking for nested directories:"
+        if [ -d "dashboard" ]; then
+          echo "NESTED DIRECTORY FOUND: dashboard/"
+          echo "Contents:"
+          ls -la dashboard/
+        else
+          echo "No nested directory found"
+        fi
+
+
+

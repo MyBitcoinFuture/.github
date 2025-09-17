@@ -1,0 +1,156 @@
+name: Enhanced Environment Debug
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  debug-environment:
+    name: Debug CI Environment
+    runs-on: [self-hosted, Linux, X64]
+    timeout-minutes: 10
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Environment Analysis
+      run: |
+        echo "=== ENVIRONMENT ANALYSIS ==="
+        echo "Current working directory: $(pwd)"
+        echo "Directory contents:"
+        ls -la
+        echo ""
+        echo "Environment variables:"
+        echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+        echo "RUNNER_WORKSPACE: $RUNNER_WORKSPACE"
+        echo "GITHUB_ACTIONS: $GITHUB_ACTIONS"
+        echo "GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
+        echo "GITHUB_REF: $GITHUB_REF"
+        echo "GITHUB_SHA: $GITHUB_SHA"
+        echo ""
+        echo "Checking for nested directories:"
+        if [ -d "dashboard" ]; then
+          echo "NESTED DIRECTORY FOUND: dashboard/"
+          echo "Contents of nested dashboard directory:"
+          ls -la dashboard/
+          echo ""
+          echo "Checking if this is the actual repo:"
+          if [ -f "dashboard/package.json" ]; then
+            echo "dashboard/package.json exists - this is the actual repo"
+          else
+            echo "dashboard/package.json does not exist"
+          fi
+        else
+          echo "No nested directory found"
+        fi
+        echo ""
+        echo "Checking for package.json in current directory:"
+        if [ -f "package.json" ]; then
+          echo "package.json found in current directory"
+          echo "Repository name from package.json:"
+          grep '"name"' package.json || echo "No name field found"
+        else
+          echo "package.json not found in current directory"
+        fi
+
+    - name: Node.js Environment
+      run: |
+        echo "=== NODE.JS ENVIRONMENT ==="
+        echo "Node version: $(node --version)"
+        echo "NPM version: $(npm --version)"
+        echo "NPM config:"
+        npm config list
+        echo ""
+        echo "Current directory for Node operations: $(pwd)"
+
+    - name: Test NPM Workspace Structure
+      run: |
+        echo "=== NPM WORKSPACE ANALYSIS ==="
+        echo "Current directory: $(pwd)"
+        echo ""
+        echo "Root package.json:"
+        if [ -f "package.json" ]; then
+          cat package.json | jq '.workspaces // "No workspaces defined"'
+        else
+          echo "No package.json found"
+        fi
+        echo ""
+        echo "Checking web workspace:"
+        if [ -d "web" ]; then
+          echo "web/ directory exists"
+          if [ -f "web/package.json" ]; then
+            echo "web/package.json exists"
+            echo "Web workspace name:"
+            grep '"name"' web/package.json || echo "No name field"
+            echo "Web workspace type:"
+            grep '"type"' web/package.json || echo "No type field"
+          else
+            echo "web/package.json does not exist"
+          fi
+        else
+          echo "web/ directory does not exist"
+        fi
+
+    - name: Test Vite Configuration
+      run: |
+        echo "=== VITE CONFIGURATION TEST ==="
+        echo "Current directory: $(pwd)"
+        echo ""
+        echo "Looking for vite.config files:"
+        find . -name "vite.config.*" -type f 2>/dev/null || echo "No vite.config files found"
+        echo ""
+        echo "Checking if vite is available:"
+        if command -v vite >/dev/null 2>&1; then
+          echo "vite command is available"
+          vite --version
+        else
+          echo "vite command is not available"
+        fi
+        echo ""
+        echo "Checking for vite in node_modules:"
+        if [ -d "node_modules/vite" ]; then
+          echo "vite found in node_modules"
+        else
+          echo "vite not found in node_modules"
+        fi
+        if [ -d "web/node_modules/vite" ]; then
+          echo "vite found in web/node_modules"
+        else
+          echo "vite not found in web/node_modules"
+        fi
+
+    - name: Simulate CI Build Steps
+      run: |
+        echo "=== SIMULATING CI BUILD STEPS ==="
+        echo "Current directory: $(pwd)"
+        echo ""
+        echo "Step 1: Install dependencies"
+        echo "Running: npm ci --workspaces --include=dev"
+        npm ci --workspaces --include=dev || echo "npm ci failed"
+        echo ""
+        echo "Step 2: Check if vite is now available"
+        if command -v vite >/dev/null 2>&1; then
+          echo "vite command is now available"
+          vite --version
+        else
+          echo "vite command is still not available"
+        fi
+        echo ""
+        echo "Step 3: Try to run vite build in web workspace"
+        if [ -d "web" ]; then
+          echo "Attempting to run vite build in web workspace:"
+          cd web
+          echo "Current directory: $(pwd)"
+          echo "Contents:"
+          ls -la
+          echo ""
+          echo "Trying vite build:"
+          npx vite build || echo "vite build failed"
+        else
+          echo "web directory not found"
+        fi
+
+
+

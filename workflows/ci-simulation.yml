@@ -1,0 +1,142 @@
+name: CI Build Simulation
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  simulate-ci-build:
+    name: Simulate CI Build Process
+    runs-on: [self-hosted, Linux, X64]
+    timeout-minutes: 15
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Environment Check
+      run: |
+        echo "=== ENVIRONMENT CHECK ==="
+        echo "Current directory: $(pwd)"
+        echo "Directory contents:"
+        ls -la
+        echo ""
+        echo "Node version: $(node --version)"
+        echo "NPM version: $(npm --version)"
+        echo ""
+        echo "Checking for nested directories:"
+        if [ -d "dashboard" ]; then
+          echo "NESTED DIRECTORY FOUND: dashboard/"
+          echo "This is the issue we need to understand"
+          echo "Contents:"
+          ls -la dashboard/
+        else
+          echo "No nested directory found"
+        fi
+
+    - name: Install Dependencies
+      run: |
+        echo "=== INSTALLING DEPENDENCIES ==="
+        echo "Current directory: $(pwd)"
+        echo ""
+        echo "Running: npm ci --workspaces --include=dev"
+        npm ci --workspaces --include=dev
+        echo ""
+        echo "Dependencies installed. Checking for vite:"
+        if command -v vite >/dev/null 2>&1; then
+          echo "vite command is available"
+          vite --version
+        else
+          echo "vite command is not available"
+        fi
+
+    - name: Test Web Workspace Build
+      run: |
+        echo "=== TESTING WEB WORKSPACE BUILD ==="
+        echo "Current directory: $(pwd)"
+        echo ""
+        echo "Checking web workspace:"
+        if [ -d "web" ]; then
+          echo "web/ directory exists"
+          cd web
+          echo "Changed to web directory: $(pwd)"
+          echo "Contents:"
+          ls -la
+          echo ""
+          echo "Checking package.json:"
+          if [ -f "package.json" ]; then
+            echo "package.json exists"
+            echo "Name: $(grep '"name"' package.json || echo 'No name')"
+            echo "Type: $(grep '"type"' package.json || echo 'No type')"
+          else
+            echo "package.json does not exist"
+          fi
+          echo ""
+          echo "Checking for vite:"
+          if command -v vite >/dev/null 2>&1; then
+            echo "vite command is available"
+            echo "Trying vite build:"
+            vite build || echo "vite build failed"
+          else
+            echo "vite command is not available"
+            echo "Trying npx vite build:"
+            npx vite build || echo "npx vite build failed"
+          fi
+        else
+          echo "web/ directory does not exist"
+        fi
+
+    - name: Test Alternative Paths
+      run: |
+        echo "=== TESTING ALTERNATIVE PATHS ==="
+        echo "Current directory: $(pwd)"
+        echo ""
+        echo "If nested directory exists, try building from there:"
+        if [ -d "dashboard" ]; then
+          echo "Found dashboard/ directory, checking contents:"
+          ls -la dashboard/
+          echo ""
+          if [ -d "dashboard/web" ]; then
+            echo "Found dashboard/web/, trying to build from there:"
+            cd dashboard/web
+            echo "Changed to dashboard/web directory: $(pwd)"
+            echo "Contents:"
+            ls -la
+            echo ""
+            echo "Trying vite build from dashboard/web:"
+            npx vite build || echo "vite build from dashboard/web failed"
+          else
+            echo "dashboard/web/ does not exist"
+          fi
+        else
+          echo "No dashboard/ directory found"
+        fi
+
+    - name: Final Analysis
+      run: |
+        echo "=== FINAL ANALYSIS ==="
+        echo "Current directory: $(pwd)"
+        echo ""
+        echo "Directory structure:"
+        find . -maxdepth 3 -type d | head -20
+        echo ""
+        echo "Looking for vite.config files:"
+        find . -name "vite.config.*" -type f
+        echo ""
+        echo "Looking for package.json files:"
+        find . -name "package.json" -type f
+        echo ""
+        echo "Environment summary:"
+        echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+        echo "RUNNER_WORKSPACE: $RUNNER_WORKSPACE"
+        echo "PWD: $(pwd)"
+
+
+
