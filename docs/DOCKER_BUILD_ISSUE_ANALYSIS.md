@@ -10,14 +10,22 @@ The GitHub Actions workflows are failing on the self-hosted runner (`linode-runn
 
 ## Root Cause Analysis
 
-### 1. Linux Build Failure
+### 1. Docker Build Script Error (FIXED)
+```
+/home/jswift/actions-runner/_work/_temp/b9f88863-5b06-48d9-a003-6d042d407f50.sh: line 6: bashn#: command not found
+```
+
+**Issue:** Complex shell script with nested quotes and sed operations was generating malformed commands.
+**Status:** ✅ **FIXED** - Simplified the Docker release update script to avoid quote escaping issues.
+
+### 2. Linux Build Failure
 ```
 ⨯ /home/jswift/.npm/_npx/009083ec26dc578f/node_modules/app-builder-bin/linux/x64/app-builder process failed ERR_ELECTRON_BUILDER_CANNOT_EXECUTE
 ```
 
 **Issue:** The Electron app-builder binary cannot execute on the self-hosted runner.
 
-### 2. Windows Build Failure
+### 3. Windows Build Failure
 ```
 ⨯ cannot execute cause=exit status 53
 errorOut=wine: failed to open "/home/jswift/.cache/electron-builder/winCodeSign/winCodeSign-2.6.0/rcedit-ia32.exe": c0000135
@@ -36,6 +44,7 @@ errorOut=wine: failed to open "/home/jswift/.cache/electron-builder/winCodeSign/
 ## Current Status
 
 ✅ **Docker Registry:** Working correctly at `127.0.0.1:5000`  
+✅ **Docker Release Script:** Fixed - no more `bashn#` command errors  
 ❌ **Electron Builder:** Failing on both Linux and Windows builds  
 ❌ **Vite Build:** Failing due to missing `web/dist/index.html`  
 
