@@ -531,6 +531,22 @@ npm start & sleep 5 && curl -s --max-time 10 http://localhost:3000/health
 node scripts/github-org-manager.js --timeout 60
 ```
 
+```bash
+# ✅ SAFE - Simple polling with sleep (bounded)
+# Sleep acts as a timeout between calls; keep loops bounded to avoid blocking.
+for i in $(seq 1 40); do
+  ts=$(date -Is)
+  echo -n "$ts "
+  curl -s -H "Authorization: token $GITHUB_TOKEN" \
+    "https://api.github.com/repos/OWNER/REPO/actions/runs?per_page=1" | \
+    jq -r ".workflow_runs[0] | \"id=\(.id) status=\(.status) conclusion=\(.conclusion) sha=\(.head_sha)\""
+  concl=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+    "https://api.github.com/repos/OWNER/REPO/actions/runs?per_page=1" | jq -r ".workflow_runs[0].conclusion")
+  if [ "$concl" != "null" ] && [ -n "$concl" ]; then break; fi
+  sleep 15
+done
+```
+
 **MANDATORY PROCESS CLEANUP:**
 ```bash
 # Before starting any server, ALWAYS run:
