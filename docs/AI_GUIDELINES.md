@@ -141,6 +141,49 @@ tail -100 logs.txt
 3. **Make them use the SAME workspace context**
 4. **Never assume workspace context doesn't matter**
 
+### 🚨 CRITICAL: CI/CD Change Safety
+**⚠️ MANDATORY FOR AI AGENTS: Be surgical with CI changes, not aggressive**
+
+**CRITICAL RULES FOR CI/CD MODIFICATIONS:**
+
+1. **BE SURGICAL, NOT AGGRESSIVE:**
+   - Only modify the specific part causing the issue
+   - Don't clear entire cache systems unless absolutely necessary
+   - Don't change multiple systems at once
+   - Test one change at a time
+
+2. **CACHE CLEARING SAFETY:**
+   - Only clear the specific cache causing the problem
+   - Preserve working caches (e.g., Windows cache for Wine compatibility)
+   - Document what each cache contains and why it's needed
+   - Consider the cascading effects of cache clearing
+
+3. **WORKFLOW MODIFICATION SAFETY:**
+   - Make minimal changes to fix the specific issue
+   - Don't refactor entire workflows unless explicitly requested
+   - Preserve working configurations
+   - Test changes incrementally
+
+4. **BEFORE MAKING CI CHANGES:**
+   - Understand what was working before
+   - Identify the specific root cause
+   - Plan the minimal change needed
+   - Consider side effects on other build steps
+
+**EXAMPLES OF SURGICAL vs AGGRESSIVE CHANGES:**
+
+❌ **AGGRESSIVE (DON'T DO THIS):**
+```yaml
+# Clearing entire cache system
+rm -rf ~/.cache/electron-builder/* || true
+```
+
+✅ **SURGICAL (DO THIS):**
+```yaml
+# Only clear the specific cache causing issues
+rm -rf ~/.cache/electron-builder/appimage || true
+```
+
 ### 🚨 CRITICAL: GitHub Workflow Log Retrieval
 **⚠️ MANDATORY FOR CI/CD DEBUGGING: Always get actual logs instead of guessing**
 
